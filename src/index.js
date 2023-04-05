@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { TrainerModule } from 'modules';
 import { EditorModule } from 'modules';
 import App from 'modules/App';
-import 'shared/style/index.scss';
 import { createRoutes } from './createRoutes';
+import buildStore from './configureStore';
+import 'shared/style/index.scss';
 
 export { TrainerModule, EditorModule } from 'modules';
 
@@ -13,11 +15,15 @@ const modules = [new TrainerModule(), new EditorModule()];
 
 const childrens = createRoutes(modules);
 
+const store = buildStore();
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>
-    <React.StrictMode>
-      <App>{childrens}</App>
-    </React.StrictMode>
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <React.StrictMode>
+        <App>{childrens}</App>
+      </React.StrictMode>
+    </BrowserRouter>
+  </Provider>
 );

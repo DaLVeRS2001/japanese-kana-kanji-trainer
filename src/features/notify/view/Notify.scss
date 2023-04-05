@@ -1,0 +1,11 @@
+#notify-root {
+  position: fixed;
+  width: 97%;
+  right: 0.4rem;
+  top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  z-index: 1001;
+  margin: auto;
+  flex-direction: column-reverse;
+}
