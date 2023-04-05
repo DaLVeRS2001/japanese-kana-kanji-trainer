@@ -1,11 +1,15 @@
 import block from 'bem-cn';
+import { useEffect } from 'react';
+import useCharacterList from 'hooks/useCharacterList';
 
 import './Editor.scss';
 
 const b = block('editor');
 
 const Editor = () => {
-  return <div className={b()}>Editor</div>;
+  const characterList = useCharacterList();
+
+  return <div className={b()}></div>;
 };
 
 export default Editor;
