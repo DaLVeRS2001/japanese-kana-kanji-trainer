@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <title>japanese-kana-trainer</title>
+    <style type="text/css">
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .load-app {
+        height: 100vh;
+        background-color: #dfbe04;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+      }
+      .load-app__img {
+        animation: 1s infinite logo-rotation;
+      }
+
+      @keyframes logo-rotation {
+        from {
+          transform: rotateY(0);
+        }
+        to {
+          transform: rotateY(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="load-app">
+        <img
+          class="load-app__img"
+          src="data:image/png;base64,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"
+          alt="load-app"
+        />
+      </div>
+    </div>
+  </body>
+</html>

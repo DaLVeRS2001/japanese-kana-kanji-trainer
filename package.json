@@ -1,0 +1,77 @@
+{
+  "name": "japanese-kana-trainer",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@electron/remote": "^2.0.9",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "bem-cn": "^3.0.1",
+    "concurrently": "^7.6.0",
+    "craco": "0.0.3",
+    "cross-env": "^7.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.0",
+    "react-scripts": "5.0.1",
+    "react-svg-inline": "^2.1.1",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.2",
+    "sass": "^1.57.1",
+    "wait-on": "^7.0.1",
+    "web-vitals": "^2.1.4",
+    "electron-is-dev": "^2.0.0"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "electron:serve": "concurrently -k \"cross-env BROWSER=none npm run start\" \"npm run electron:start\"",
+    "electron:build": "npm run build && electron-builder -c.extraMetadata.main=build/electron.js",
+    "electron:start": "electron ."
+  },
+  "main": "public/electron.js",
+  "homepage": "./",
+  "build": {
+    "extends": null,
+    "productName": "japanese-kana-trainer",
+    "appId": "plati-editor.vercel.app",
+    "files": [
+      "dist/**/*",
+      "build/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "win": {
+      "icon": "./public/favicon.ico"
+    },
+    "directories": {
+      "buildResources": "public"
+    }
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "electron": "^22.2.0",
+    "file-loader": "^6.2.0",
+    "electron-builder": "^23.6.0"
+  }
+}

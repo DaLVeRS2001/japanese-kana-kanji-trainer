@@ -1,0 +1,12 @@
+.header {
+    background-color: #dfbe04;
+    padding: 0.625rem 0.9375rem;
+    box-shadow: 0 0.125rem 0.625rem black;
+    display: flex;
+    align-items: center;
+    & img {
+        width: 4rem;
+        height: 4rem;
+        margin-right: 1.25rem;
+    }
+}

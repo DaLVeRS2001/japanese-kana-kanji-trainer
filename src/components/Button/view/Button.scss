@@ -1,0 +1,23 @@
+.button {
+    border: none;
+    display: flex;
+    align-items: center;
+    outline: none;
+    background-color: transparent;
+    margin-right: 0.3125rem;
+    cursor: pointer;
+    padding: 0.625rem;
+    border-radius: 0.1875rem;
+    border: 0.0625rem solid #e5e5e5;
+    transition: 0.25s;
+    max-height: 2.5rem;
+
+    &:hover {
+        background-color: #e5e5e5;
+    }
+    &_type {
+        &_copy {
+            margin-left: 1rem;
+        }
+    }
+}

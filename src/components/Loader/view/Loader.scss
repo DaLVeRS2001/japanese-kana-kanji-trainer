@@ -1,0 +1,25 @@
+.loader {
+    height: 100vh;
+    background-color: #dfbe04;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+
+    & img {
+        animation: 1s infinite logo-rotation;
+    }
+}
+
+
+
+@keyframes logo-rotation {
+    from {
+      transform: rotateY(0);
+    }
+  
+    to {
+        transform: rotateY(360deg);
+    }
+  }
