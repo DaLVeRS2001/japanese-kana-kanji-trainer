@@ -2,12 +2,7 @@
     background-color: #dfbe04;
     padding: 0.625rem 0.9375rem;
     box-shadow: 0 -0.125rem 0.625rem black;
-    &__link {
-        color: #fff;
-        background-color: blue;
-        padding: 0.3125rem 0.9375rem;
-        border-radius: 0.3125rem;
-        cursor: pointer;
-        margin-right: 0.625rem;
+    display: flex;
+    & .button {
     }
 }

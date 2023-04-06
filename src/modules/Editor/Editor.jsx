@@ -1,7 +1,7 @@
-import React from 'react';
+import { lazy } from 'react';
 import { Route } from 'react-router-dom';
 
-const Editor = React.lazy(() => import('features/editor'));
+const Editor = lazy(() => import('features/editor'));
 
 export class EditorModule {
   getRoutes() {

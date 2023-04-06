@@ -1,8 +1,6 @@
-import React from 'react';
 import block from 'bem-cn';
-import PT from 'prop-types';
 import { footerLinks } from 'shared/utils/trash';
-import { Link } from 'react-router-dom';
+import Button from 'components/Button';
 
 import './Footer.scss';
 
@@ -12,9 +10,7 @@ const Footer = () => {
   return (
     <footer className={b()}>
       {footerLinks.map((link) => (
-        <Link key={link.name} to={link.link} className={b('link')}>
-          {link.name}
-        </Link>
+        <Button key={link.name} link={link.link} text={link.name} />
       ))}
     </footer>
   );

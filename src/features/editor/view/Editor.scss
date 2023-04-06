@@ -1,4 +1,10 @@
 @import "shared/style/variables.scss";
 .editor {
     padding: 0.625rem;
+    &__input {
+        margin-bottom: 1.25rem;
+        & .button {
+            margin: 0.3125rem 0;
+        }
+    }
 }

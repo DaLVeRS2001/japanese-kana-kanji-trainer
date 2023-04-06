@@ -1,4 +1,3 @@
-import React from 'react';
 import { Routes, Navigate, Route } from 'react-router-dom';
 
 export function createRoutes(modules) {

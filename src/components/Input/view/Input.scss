@@ -1,0 +1,169 @@
+@font-face {
+  font-family: "password";
+  font-style: normal;
+  font-weight: 400;
+  src: url(./font/password.ttf);
+}
+
+.input {
+  user-select: none;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &__native {
+    width: 100%;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    padding: 0 3rem 0 1.25rem;
+    border-radius: 0.3125rem;
+    border: 0 solid transparent;
+    outline: none;
+    font-family: "Roboto", sans-serif;
+    -webkit-appearance: none;
+
+    &::placeholder {
+      font-family: "Roboto", sans-serif;
+    }
+    &:focus,
+    &::placeholder {
+      color: transparent;
+    }
+
+    &_type_password {
+      padding: 0 3.625rem 0 1.25rem;
+    }
+
+    &_hasMeasurement {
+      padding: 0 3.625rem 0 1.25rem;
+    }
+
+    &_activePassword {
+      font-family: "password";
+    }
+
+    &_valid {
+      /* border: 0.0625rem solid green; */
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill,
+    &:-webkit-autofill::first-line,
+    &::-internal-input-seggested {
+      color: black;
+      -webkit-text-fill-color: black;
+      -webkit-box-shadow: 0 0 0rem 62.5rem transparent inset;
+      transition: background-color 5000s ease-in-out 0s;
+      background: -webkit-linear-gradient(
+        top,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(0, 174, 255, 0.04) 50%,
+        rgba(255, 255, 255, 0) 51%,
+        rgba(0, 174, 255, 0.03) 100%
+      );
+    }
+    &::-webkit-inner-spin-button {
+      display: none !important;
+    }
+  }
+
+  &__password,
+  &__password-off {
+    cursor: pointer;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 1.25rem;
+  }
+  &__password_active {
+    display: flex;
+  }
+  &__password-off_active {
+    display: flex;
+  }
+
+  &_fontSize_16 &__native {
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1rem;
+
+    &::placeholder {
+      font-weight: 500;
+      font-size: 1rem;
+      line-height: 1rem;
+    }
+  }
+
+  &_color_default &__native {
+    background: none;
+    border: 0.0625rem solid #7e89a4;
+    color: #01040e;
+
+    &::placeholder {
+      color: #7e89a4;
+    }
+  }
+  &_color_light &__native {
+    background: #1d3156;
+    border-radius: 0.3125rem;
+    border: 0.0625rem solid #1d3156;
+    color: white;
+
+    &::placeholder {
+      color: white;
+    }
+  }
+
+  &_color_promotion &__native {
+    background: #222222;
+    border: 0.0625rem solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+  }
+
+  &_color_whiteText &__native {
+    background: #030b1e;
+    border: 0.0625rem solid #2d3851;
+    border-radius: 0.625rem;
+    color: #fff;
+  }
+
+  &__measurement {
+    position: absolute;
+    right: 1.25rem;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: right;
+    color: #019cf1;
+  }
+
+  &__tooltip-icon {
+    position: absolute;
+    right: 0;
+    width: 2rem;
+    color: #019cf1;
+    cursor: pointer;
+  }
+  &__tooltip-block {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 1.9rem;
+    min-width: 7rem;
+    max-width: 14rem;
+    min-height: 3rem;
+    padding: 0.3125rem;
+    border-radius: 0.625rem;
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.5);
+    border: 0.0625rem solid rgba(0, 0, 0, 0.3);
+    word-wrap: break-word;
+  }
+}

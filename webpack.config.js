@@ -1,4 +1,6 @@
 const path = require('path');
+const webpack = require('webpack');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -38,13 +40,31 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
-        exclude: /node_modules/,
-        loader: 'file-loader',
+        test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'public/fonts/',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(jpe?g|png|gif|webp)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              name: 'public/[name].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /\.svg$/,
-        exclude: /node_modules/,
         loader: 'svg-inline-loader',
       },
     ],
@@ -64,6 +84,7 @@ module.exports = {
   ],
   devServer: {
     port: 3001,
+    host: '0.0.0.0',
     historyApiFallback: true,
   },
   resolve: {

@@ -1,0 +1,26 @@
+// {
+//   "compilerOptions": {
+//     "experimentalDecorators": true,
+//     "baseUrl": "./src",
+//     "paths": {
+//       "*": ["src/*"]
+//     }
+//   },
+//   "include": ["./src"],
+//   "exclude": ["node_modules", "dist"]
+// }
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./",
+    "paths": {
+      "components/*": ["src/components/*"],
+      "features/*": ["src/features/*"],
+      "modules/*": ["src/modules/*"],
+      "shared/*": ["src/shared/*"],
+      "hooks/*": ["src/hooks/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

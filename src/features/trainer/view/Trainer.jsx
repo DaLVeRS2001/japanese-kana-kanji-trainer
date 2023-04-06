@@ -1,5 +1,4 @@
 import block from 'bem-cn';
-
 import './Trainer.scss';
 
 const b = block('trainer');
