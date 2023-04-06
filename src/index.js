@@ -21,9 +21,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <BrowserRouter>
-      <React.StrictMode>
-        <App>{childrens}</App>
-      </React.StrictMode>
+      <App>{childrens}</App>
     </BrowserRouter>
   </Provider>
 );

@@ -8,7 +8,6 @@ const b = block('editor');
 
 const Editor = () => {
   const characterList = useCharacterList();
-  characterList.removeItem('k');
 
   return <div className={b()}></div>;
 };

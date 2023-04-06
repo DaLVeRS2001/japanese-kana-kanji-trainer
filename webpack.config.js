@@ -17,6 +17,7 @@ module.exports = {
   output: {
     path: PATHS.dist,
     filename: production ? '[name].[contenthash].js' : '[name].js',
+    publicPath: '/',
   },
 
   module: {
@@ -24,21 +25,22 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        loader: 'babel-loader',
       },
       {
         test: /\.s(a|c)ss$/,
         exclude: /node_modules/,
         use: [
           production ? MiniCssExtractPlugin.loader : 'style-loader',
-          { loader: 'css-loader' },
-          { loader: 'sass-loader' },
+          'css-loader',
+          'sass-loader',
+          'postcss-loader',
         ],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
         exclude: /node_modules/,
-        use: [{ loader: 'file-loader' }],
+        loader: 'file-loader',
       },
       {
         test: /\.svg$/,
@@ -62,6 +64,7 @@ module.exports = {
   ],
   devServer: {
     port: 3001,
+    historyApiFallback: true,
   },
   resolve: {
     alias: {

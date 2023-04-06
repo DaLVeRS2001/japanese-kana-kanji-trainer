@@ -29,7 +29,8 @@ const useCharacterList = () => {
       );
       storage.add(KEY, filteredCharacters);
     },
-    addItem: (character) => storage.add(KEY, [...getCharacters(), character]),
+    addItem: (character) =>
+      storage.add(KEY, getUniqueArr([...getCharacters(), character])),
     addMultipleItems: (characters) =>
       storage.add(KEY, getUniqueArr([...characters, ...characters])),
     getList: () => getCharacters(),
