@@ -3,6 +3,11 @@
     padding: 0.625rem 0.9375rem;
     box-shadow: 0 -0.125rem 0.625rem black;
     display: flex;
-    & .button {
+    &__link {
+        &_active {
+            & .button {
+                background-color: #fff;
+            }
+        }
     }
 }

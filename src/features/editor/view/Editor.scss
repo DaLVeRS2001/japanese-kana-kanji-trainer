@@ -1,10 +1,22 @@
 @import "shared/style/variables.scss";
 .editor {
+    box-sizing: border-box;
     padding: 0.625rem;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
     &__input {
         margin-bottom: 1.25rem;
         & .button {
             margin: 0.3125rem 0;
         }
+    }
+    &__bottom {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
+    &__clear {
     }
 }

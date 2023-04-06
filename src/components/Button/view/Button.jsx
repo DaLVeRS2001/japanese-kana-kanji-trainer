@@ -8,7 +8,9 @@ const b = block('button');
 
 const Button = ({
   text,
+  active = false,
   callBack,
+  background = null,
   id = null,
   disabled = false,
   link,
@@ -16,13 +18,17 @@ const Button = ({
   type = null,
 }) => {
   return link ? (
-    <Link className={b({ isLink: true, bemModule, type })} to={link} id={id}>
+    <Link
+      className={b({ isLink: true, bemModule, type, background, active })}
+      to={link}
+      id={id}
+    >
       {text}
     </Link>
   ) : (
     <button
       id={id}
-      className={b({ type, bemModule })}
+      className={b({ type, bemModule, background, active })}
       onClick={disabled ? (f) => f : callBack}
       disabled={disabled}
     >

@@ -24,4 +24,18 @@
             margin-left: 1rem;
         }
     }
+    &_active {
+        background-color: #fff;
+        border: 0.0625rem solid #1786c2;
+        color: #1786c2;
+    }
+    &_background {
+        &_red {
+            background-color: red;
+            &:hover {
+                color: red;
+                border: 0.0625rem solid red;
+            }
+        }
+    }
 }
