@@ -3,4 +3,13 @@ const footerLinks = [
   { name: 'List Editor', link: '/list-editor' },
 ];
 
-export { footerLinks };
+const characterTypes = [
+  'a-item',
+  'a-items',
+  'r-item',
+  'r-items',
+  'g-items',
+  'c-items',
+];
+
+export { footerLinks, characterTypes };

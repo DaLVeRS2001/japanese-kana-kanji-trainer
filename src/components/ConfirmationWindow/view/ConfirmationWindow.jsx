@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import PT from 'prop-types';
 import block from 'bem-cn';
 import Button from 'components/Button';

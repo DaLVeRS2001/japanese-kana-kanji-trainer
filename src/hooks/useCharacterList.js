@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
 import useLocalStorage from './useLocalStorage';
 import { useDispatch } from 'react-redux';
 import { getUniqueArr, checkMatch } from 'shared/helpers';
 import { addNotify } from 'features/notify';
+import { useState } from 'react';
+import { characterTypes } from 'shared/utils/trash';
 
 const useCharacterList = () => {
   const storage = useLocalStorage();
@@ -11,6 +12,11 @@ const useCharacterList = () => {
   const KEY = 'characters';
 
   const getCharacters = () => getUniqueArr(storage.get(KEY) ?? []);
+
+  const [characterList, changeCharacterList] = useState({
+    isOpen: false,
+    list: getCharacters(),
+  });
 
   const getMatchedCharacters = (characters, type) => {
     const isRemove = type === 'remove';
@@ -44,12 +50,10 @@ const useCharacterList = () => {
       'error'
     );
 
-  const characterTypes = ['a-item', 'a-items', 'r-item', 'r-items', 'c-items'];
-
   const characterListUI = {
     clearList: () => {
       const characters = getCharacters();
-      if (!characters.length) sendNotice('The list is already empty,', 'error');
+      if (!characters.length) sendNotice('The list is already empty', 'error');
       else {
         storage.add(KEY, []);
         sendNotice('Cleared successfully', 'success');
@@ -57,7 +61,8 @@ const useCharacterList = () => {
     },
     removeItem: (character) => {
       const charactersCopy = [...getCharacters()];
-      charactersCopy.splice(character, 1);
+      const idx = charactersCopy.indexOf(character);
+      charactersCopy.splice(idx, 1);
       storage.add(KEY, charactersCopy);
       sendNotice('Removed successfully', 'success');
     },
@@ -69,7 +74,6 @@ const useCharacterList = () => {
         const filteredCharacters = getCharacters().filter(
           (character) => characters.indexOf(character) === -1
         );
-        console.log(filteredCharacters, getCharacters(), characters);
         storage.add(KEY, filteredCharacters);
         sendNotice('Removed successfully', 'success');
       }
@@ -95,8 +99,15 @@ const useCharacterList = () => {
     getList: () => getCharacters(),
   };
 
+  const onChangeCharacterList = (onlyList = false) => {
+    const list = characterListUI.getList();
+    const isOpen = onlyList ? characterList.isOpen : !characterList.isOpen;
+    changeCharacterList({ list: [...list], isOpen });
+  };
+
   const handleCharacterList = (type, value = null, callBack) => {
-    if (type !== characterTypes[4] && !value) {
+    const typeExceptions = [characterTypes[5], characterTypes[4]];
+    if (typeExceptions.indexOf(type) === -1 && !value) {
       sendNotice('The field is empty', 'error');
       return;
     }
@@ -109,9 +120,13 @@ const useCharacterList = () => {
         break;
       case characterTypes[2]:
         characterListUI.removeItem(value);
+        onChangeCharacterList(true);
         break;
       case characterTypes[3]:
         characterListUI.removeMultipleItems(value.split(','));
+        break;
+      case characterTypes[4]:
+        onChangeCharacterList();
         break;
       default:
         callBack();
@@ -119,9 +134,11 @@ const useCharacterList = () => {
   };
 
   return {
-    characterTypes,
     characterListUI,
     handleCharacterList,
+    characterList,
+    closeCharacterList: () =>
+      changeCharacterList({ ...characterList, isOpen: false }),
   };
 };
 

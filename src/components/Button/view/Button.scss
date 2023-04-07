@@ -37,5 +37,12 @@
                 border: 0.0625rem solid red;
             }
         }
+        &_green {
+            background-color: green;
+            &:hover {
+                color: green;
+                border: 0.0625rem solid green;
+            }
+        }
     }
 }

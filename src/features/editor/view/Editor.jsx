@@ -1,18 +1,25 @@
 import block from 'bem-cn';
+import { useEffect } from 'react';
 import React, { useState } from 'react';
 import useCharacterList from 'hooks/useCharacterList';
+import { characterTypes } from 'shared/utils/trash';
 import Input from 'components/Input';
 import Button from 'components/Button';
 import Modal from 'components/Modal';
 import ConfirmationWindow from 'components/ConfirmationWindow';
+import CharacterListWindow from './CharacterListWindow';
 
 import './Editor.scss';
 
 const b = block('editor');
 
 const Editor = () => {
-  const { characterListUI, characterTypes, handleCharacterList } =
-    useCharacterList();
+  const {
+    characterListUI,
+    handleCharacterList,
+    characterList,
+    closeCharacterList,
+  } = useCharacterList();
   const [isConfirmWindowOpen, changeConfirmWindow] = useState(false);
 
   const [state, setState] = useState({
@@ -37,6 +44,16 @@ const Editor = () => {
       {isConfirmWindowOpen && (
         <Modal onClose={handleOnConfirmWindow}>
           <ConfirmationWindow callBack={handleOnConfirmWindow} />
+        </Modal>
+      )}
+      {characterList.isOpen && (
+        <Modal onClose={closeCharacterList}>
+          <CharacterListWindow
+            list={characterList.list}
+            remove={(character) =>
+              handleCharacterList(characterTypes[2], character)
+            }
+          />
         </Modal>
       )}
 
@@ -88,12 +105,19 @@ const Editor = () => {
         </div>
       </div>
       <div className={b('bottom')}>
-        <div className={b('clear')}>
+        <div className={b('button')}>
+          <Button
+            text="Show the whole list"
+            background="green"
+            callBack={() => handleCharacterList(characterTypes[4])}
+          />
+        </div>
+        <div className={b('button')}>
           <Button
             text="Clear the whole list"
             background="red"
             callBack={() =>
-              handleCharacterList(characterTypes[4], null, () =>
+              handleCharacterList(characterTypes[5], null, () =>
                 changeConfirmWindow(!isConfirmWindowOpen)
               )
             }

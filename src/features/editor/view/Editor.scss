@@ -1,4 +1,3 @@
-@import "shared/style/variables.scss";
 .editor {
     box-sizing: border-box;
     padding: 0.625rem;
@@ -14,9 +13,7 @@
     }
     &__bottom {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         align-items: flex-end;
-    }
-    &__clear {
     }
 }

@@ -1,5 +1,6 @@
 const getUniqueArr = (arr) => {
-  return [...new Set(arr)].map((el) => el.trim()).filter((el) => el);
+  const trimmed = arr.map((el) => el.trim());
+  return [...new Set(trimmed)].filter((el) => el);
 };
 const checkMatch = (list, target) => list.indexOf(target.trim()) !== -1;
 
