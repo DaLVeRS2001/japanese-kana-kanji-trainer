@@ -4,6 +4,7 @@ import { getUniqueArr, checkMatch } from 'shared/helpers';
 import { addNotify } from 'features/notify';
 import { useState } from 'react';
 import { characterTypes } from 'shared/utils/trash';
+import { useEffect } from 'react';
 
 const useCharacterList = () => {
   const storage = useLocalStorage();
@@ -132,6 +133,10 @@ const useCharacterList = () => {
         callBack();
     }
   };
+
+  useEffect(() => {
+    characterListUI.getList();
+  }, []);
 
   return {
     characterListUI,

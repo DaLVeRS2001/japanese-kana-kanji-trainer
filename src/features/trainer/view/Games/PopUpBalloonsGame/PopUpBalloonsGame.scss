@@ -1,0 +1,23 @@
+.pop-up-balloons-game {
+    box-sizing: border-box;
+    padding: 0.625rem;
+    height: 100%;
+
+    &__game {
+        position: relative;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+    }
+
+    &__balloon {
+        position: absolute;
+        left: 12px;
+        top: 0;
+        box-sizing: border-box;
+        border: 1px solid red;
+        height: 2rem;
+        width: 1rem;
+    }
+}

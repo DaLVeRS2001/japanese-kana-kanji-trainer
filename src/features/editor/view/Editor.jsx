@@ -1,7 +1,6 @@
 import block from 'bem-cn';
-import { useEffect } from 'react';
 import React, { useState } from 'react';
-import useCharacterList from 'hooks/useCharacterList';
+import { useCharacterList } from 'hooks';
 import { characterTypes } from 'shared/utils/trash';
 import Input from 'components/Input';
 import Button from 'components/Button';

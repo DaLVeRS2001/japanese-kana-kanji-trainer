@@ -12,4 +12,11 @@ const characterTypes = [
   'c-items',
 ];
 
-export { footerLinks, characterTypes };
+const popUpBalloonsGameDefaultSettings = {
+  balloonCharacterCount: {
+    default: 10,
+    max: 20,
+  },
+};
+
+export { footerLinks, characterTypes, popUpBalloonsGameDefaultSettings };
