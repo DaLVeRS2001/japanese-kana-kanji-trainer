@@ -6,6 +6,7 @@ import { getRandomKey } from 'shared/helpers';
 import { usePopUpBalloonsGame, useCharacterList } from 'hooks';
 
 import './PopUpBalloonsGame.scss';
+import { useEffect } from 'react';
 
 const b = block('pop-up-balloons-game');
 
@@ -27,6 +28,13 @@ const PopUpBalloonsGame = () => {
     gameFieldRef,
     // outBalloon,
   } = usePopUpBalloonsGame(characters);
+
+  useEffect(() => {
+    return () => {
+      stopGame();
+      balloons.map((el) => cancelAnimationFrame(el.animationFrame));
+    };
+  }, []);
 
   const BalloonComponent = ({ balloon }) =>
     useMemo(() => {

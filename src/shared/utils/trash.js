@@ -30,7 +30,7 @@ const popUpBalloonsGameDefaultSettings = {
       timeoutTo: 100,
     },
     creationInterval: {
-      min: getSeconds(0.2),
+      min: getSeconds(0.5),
       max: getSeconds(20),
     },
   },

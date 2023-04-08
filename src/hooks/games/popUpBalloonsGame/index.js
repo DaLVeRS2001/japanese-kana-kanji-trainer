@@ -43,7 +43,7 @@ const usePopUpBalloonsGame = (characters = []) => {
   }, []);
 
   useEffect(() => {
-    if (!!balloons.length) {
+    if (!!balloons.length && isGameRunning) {
       balloons[balloons.length - 1].animationFrame((time) =>
         newtest(
           time,
