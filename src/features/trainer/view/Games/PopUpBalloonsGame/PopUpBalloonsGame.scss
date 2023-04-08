@@ -12,12 +12,11 @@
     }
 
     &__balloon {
-        position: absolute;
-        left: 12px;
-        top: 0;
         box-sizing: border-box;
         border: 1px solid red;
-        height: 2rem;
-        width: 1rem;
+        min-height: 2rem;
+        min-width: 1rem;
+        display: flex;
+        flex-direction: column;
     }
 }

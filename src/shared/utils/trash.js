@@ -1,3 +1,5 @@
+import { getMinutes, getSeconds } from 'shared/helpers';
+
 const footerLinks = [
   { name: 'Trainer', link: '/trainer' },
   { name: 'List Editor', link: '/list-editor' },
@@ -16,6 +18,21 @@ const popUpBalloonsGameDefaultSettings = {
   balloonCharacterCount: {
     default: 10,
     max: 20,
+  },
+  gameTime: {
+    default: getMinutes(0.2),
+    max: getMinutes(60),
+    isInfinite: false,
+  },
+  balloonsSpeed: {
+    speedUp: {
+      pxCountToUp: 2,
+      timeoutTo: 100,
+    },
+    creationInterval: {
+      min: getSeconds(1),
+      max: getSeconds(20),
+    },
   },
 };
 
