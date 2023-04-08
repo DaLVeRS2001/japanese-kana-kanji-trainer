@@ -17,28 +17,39 @@ const PopUpBalloonsGame = () => {
     [characterList.list]
   );
 
-  const { balloons, gameSettings, runGame, stopGame, isGameRunning } =
-    usePopUpBalloonsGame(characters);
+  const {
+    balloons,
+    gameSettings,
+    startGame,
+    stopGame,
+    isGameRunning,
+    balloonRef,
+    gameFieldRef,
+    // outBalloon,
+  } = usePopUpBalloonsGame(characters);
 
-  const gameRef = useRef();
-  const ballonRef = useRef();
-
-  const BalloonComponent = ({ balloon }) => (
-    <div className={b('balloon', { id: balloon.id })}>
-      {balloon.characters.map((character, idx) => {
-        return (
-          <span key={getRandomKey(idx)} className={b('balloon__character')}>
-            {character}
-          </span>
-        );
-      })}
-    </div>
-  );
+  const BalloonComponent = ({ balloon }) =>
+    useMemo(() => {
+      return (
+        <div
+          id={balloon.id}
+          ref={(el) => balloonRef(el, balloon)}
+          className={b('balloon', { id: balloon.id })}
+        >
+          {balloon.characters.map((character, idx) => {
+            return (
+              <span key={getRandomKey(idx)} className={b('balloon__character')}>
+                {character}
+              </span>
+            );
+          })}
+        </div>
+      );
+    }, [balloons]);
 
   return (
     <div className={b()}>
-      {/* <div>PopUpBalloonsGame</div> */}
-      <div ref={gameRef} className={b('game')}>
+      <div ref={gameFieldRef} className={b('game')}>
         {!!balloons.length &&
           balloons.map((balloon, idx) => (
             <BalloonComponent key={getRandomKey(idx)} balloon={balloon} />

@@ -2,21 +2,28 @@
     box-sizing: border-box;
     padding: 0.625rem;
     height: 100%;
-
+    position: relative;
     &__game {
         position: relative;
-        box-sizing: border-box;
         width: 100%;
         height: 100%;
-        border: 1px solid black;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-end;
+        position: absolute;
+        left: 0;
     }
 
     &__balloon {
         box-sizing: border-box;
         border: 1px solid red;
-        min-height: 2rem;
-        min-width: 1rem;
+        height: fit-content;
+        width: fit-content;
+        padding: 0.3125rem 0.625rem;
+        text-align: center;
         display: flex;
         flex-direction: column;
+        margin: 1.875rem;
     }
 }

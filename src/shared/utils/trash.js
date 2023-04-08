@@ -20,7 +20,7 @@ const popUpBalloonsGameDefaultSettings = {
     max: 20,
   },
   gameTime: {
-    default: getMinutes(0.2),
+    default: getMinutes(0.1),
     max: getMinutes(60),
     isInfinite: false,
   },
@@ -30,7 +30,7 @@ const popUpBalloonsGameDefaultSettings = {
       timeoutTo: 100,
     },
     creationInterval: {
-      min: getSeconds(1),
+      min: getSeconds(0.2),
       max: getSeconds(20),
     },
   },

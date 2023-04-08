@@ -43,9 +43,6 @@ const Input = ({
     [passwordVisible, isPassword]
   );
 
-  useEffect(() => {
-    console.log(isTooltipActive);
-  }, [isTooltipActive]);
   let tooltipTimeoutID;
 
   const handleTooltip = (e) => {
