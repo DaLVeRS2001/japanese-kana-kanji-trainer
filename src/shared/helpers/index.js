@@ -1,4 +1,5 @@
 import validateEmail from './validateEmail';
+import cancelAllAnimationFrames from './cancelAllAnimationFrames';
 
 import {
   getUniqueArr,
@@ -11,6 +12,7 @@ import {
 
 export {
   validateEmail,
+  cancelAllAnimationFrames,
   getUniqueArr,
   checkMatch,
   getRandomNumber,

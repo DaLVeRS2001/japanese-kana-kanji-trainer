@@ -1,12 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import usePopUpBalloonsSettings from './usePopUpSettings';
 import usePopUpMainUI from './usePopUpMainUI';
-import { useState } from 'react';
+import usePopUpAnimations from './usePopUpAnimations';
 
 const usePopUpBalloonsGame = (characters = []) => {
   const { gameSettings } = usePopUpBalloonsSettings();
-  const [animations, changeAnimations] = useState([]);
-
   const {
     UI: { startGame, stopGame, changeBalloonCount, findHighestBalloon },
     balloons,
@@ -14,16 +12,12 @@ const usePopUpBalloonsGame = (characters = []) => {
   } = usePopUpMainUI(gameSettings, characters);
 
   const balloonRefs = useRef([]);
-
   const gameFieldRef = useRef();
-
   const balloonElements = balloonRefs.current ?? [];
 
-  const newtest = (time, refElement, animationFrame) => {
-    animationFrame((time) => newtest(time, refElement, animationFrame));
-    const result = balloonElements.find((el) => +el.id === refElement);
-    result.style.transform = `translateY(-${time / 100}px)`;
-  };
+  usePopUpAnimations(isGameRunning, balloons, balloonElements);
+
+  const [animations, changeAnimations] = useState([]);
 
   const balloonRef = (refElement, balloon) => {
     const isNextBalloon = refElement;
@@ -40,19 +34,8 @@ const usePopUpBalloonsGame = (characters = []) => {
 
   useEffect(() => {
     startGame(true);
+    return () => stopGame();
   }, []);
-
-  useEffect(() => {
-    if (!!balloons.length && isGameRunning) {
-      balloons[balloons.length - 1].animationFrame((time) =>
-        newtest(
-          time,
-          balloons[balloons.length - 1].id,
-          balloons[balloons.length - 1].animationFrame
-        )
-      );
-    }
-  }, [balloons]);
 
   return {
     balloons,

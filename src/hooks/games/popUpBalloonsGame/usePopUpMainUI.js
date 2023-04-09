@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getRandomNumber } from 'shared/helpers';
+import cancelAllAnimationFrames from 'shared/helpers/cancelAllAnimationFrames';
 
 const usePopUpMainUI = (gameSettings, characters) => {
   let createBalloonTimeoutID;
@@ -28,6 +29,7 @@ const usePopUpMainUI = (gameSettings, characters) => {
     };
     changeBalloonCount([...balloons, newBalloon]);
   };
+
   const startGameCreationTimeout = () => {
     createBalloonTimeoutID = setTimeout(() => {
       handleChangeBalloonCount();
@@ -35,11 +37,13 @@ const usePopUpMainUI = (gameSettings, characters) => {
   };
 
   const stop = () => {
+    cancelAllAnimationFrames();
     clearTimeout(createBalloonTimeoutID);
     startGame(false);
   };
 
   const start = () => {
+    startGame(true);
     startGameCreationTimeout();
     const isGameWithTimeLimit =
       !gameSettings.gameTime.isInfinite && !balloons.length;
@@ -50,28 +54,22 @@ const usePopUpMainUI = (gameSettings, characters) => {
     }
   };
 
-  const stopGame = () => {
-    const isGameFinished = !isGameRunning && !!balloons.length;
-    if (isGameRunning) start(balloons);
-    // else if (isGameFinished) changeBalloonCount([]); //then we can delete this, cuz game finished when we fill the last balloons
-    return;
-  };
-
   const findHighestBalloon = (elements) => {
     return elements.sort((a, b) => b.offsetHeight - a.offsetHeight)[0];
   };
 
   useEffect(() => {
-    if (isGameRunning) start();
-  }, [isGameRunning]);
-
-  useEffect(() => {
-    stopGame();
+    if (isGameRunning) startGameCreationTimeout();
   }, [balloons]);
 
   return {
     balloons,
-    UI: { stopGame, startGame, changeBalloonCount, findHighestBalloon },
+    UI: {
+      stopGame: stop,
+      startGame: start,
+      changeBalloonCount,
+      findHighestBalloon,
+    },
     isGameRunning,
   };
 };

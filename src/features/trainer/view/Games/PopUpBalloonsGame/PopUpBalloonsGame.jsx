@@ -26,15 +26,7 @@ const PopUpBalloonsGame = () => {
     isGameRunning,
     balloonRef,
     gameFieldRef,
-    // outBalloon,
   } = usePopUpBalloonsGame(characters);
-
-  useEffect(() => {
-    return () => {
-      stopGame();
-      balloons.map((el) => cancelAnimationFrame(el.animationFrame));
-    };
-  }, []);
 
   const BalloonComponent = ({ balloon }) =>
     useMemo(() => {
