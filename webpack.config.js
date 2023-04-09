@@ -4,40 +4,44 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const production = process.env.NODE_ENV === 'production';
 
 const PATHS = {
-  src: path.resolve(__dirname, './src'),
-  public: path.resolve(__dirname, './public'),
-  dist: path.resolve(__dirname, './dist'),
+  src: path.resolve(__dirname, 'src'),
+  public: path.resolve(__dirname, 'public'),
+  dist: path.resolve(__dirname, 'dist'),
+};
+
+let htmlMinifyOptions = {
+  collapseWhitespace: true,
+  html5: true,
+  minifyCSS: true,
+  removeComments: true,
+  removeEmptyAttributes: true,
 };
 
 module.exports = {
   entry: `${PATHS.src}/index.js`,
   output: {
     path: PATHS.dist,
-    filename: production ? '[name].[contenthash].js' : '[name].js',
+    filename: production ? '[name].[fullhash].js' : '[name].js',
     publicPath: '/',
   },
-
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        use: {
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.s(a|c)ss$/,
         exclude: /node_modules/,
-        use: [
-          production ? MiniCssExtractPlugin.loader : 'style-loader',
-          'css-loader',
-          'sass-loader',
-          'postcss-loader',
-        ],
+        use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader'],
       },
       {
         test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
@@ -71,31 +75,35 @@ module.exports = {
   },
   plugins: [
     new BundleAnalyzerPlugin(),
-    new FaviconsWebpackPlugin(`${PATHS.public}/favicon.ico`),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'Japanese kana&kanji trainer',
-      template: `${PATHS.public}/index.html`,
-      favicon: `${PATHS.public}/favicon.ico`,
+      template: './public/index.html',
+      filename: './index.html',
+      favicon: `./public/favicon.ico`,
+      minify: htmlMinifyOptions,
     }),
     new MiniCssExtractPlugin({
-      filename: production ? '[name].[contenthash].css' : '[name].css',
+      filename: production ? '[name].[fullhash].css' : '[name].css',
     }),
   ],
   devServer: {
     port: 3001,
-    host: '0.0.0.0',
+    static: './dist',
     historyApiFallback: true,
   },
   resolve: {
     alias: {
-      components: `${PATHS.src}/components/`,
-      features: `${PATHS.src}/features/`,
-      modules: `${PATHS.src}/modules/`,
-      shared: `${PATHS.src}/shared/`,
-      hooks: `${PATHS.src}/hooks/`,
+      components: `${PATHS.src}/components`,
+      features: `${PATHS.src}/features`,
+      modules: `${PATHS.src}/modules`,
+      shared: `${PATHS.src}/shared`,
+      hooks: `${PATHS.src}/hooks`,
     },
     extensions: ['.*', '.js', '.jsx', '.scss'],
+  },
+  optimization: {
+    runtimeChunk: 'single',
   },
   mode: production ? 'production' : 'development',
 };
