@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const usePopUpAnimations = (isGameRunning, balloons, balloonElements) => {
+const usePopUpAnimations = ({ isGameRunning, balloons, balloonElements }) => {
   const setAnimationFrameToBalloon = (time, id, animationFrame) => {
     const filtered = balloonElements.filter((el) => el);
     const isGameNotFinished = isGameRunning && id && filtered.length;

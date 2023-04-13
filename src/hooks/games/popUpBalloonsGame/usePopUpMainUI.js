@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getRandomNumber } from 'shared/helpers';
 import cancelAllAnimationFrames from 'shared/helpers/cancelAllAnimationFrames';
 
-const usePopUpMainUI = (gameSettings, characters) => {
+const usePopUpMainUI = ({ gameSettings, characters }) => {
   let createBalloonTimeoutID;
 
   const [isGameRunning, startGame] = useState(false);
@@ -12,6 +12,16 @@ const usePopUpMainUI = (gameSettings, characters) => {
   const getRandomCharacterCountInBalloon = () => {
     const maxCount = gameSettings.balloonCharacterCount;
     return getRandomNumber(maxCount);
+  };
+
+  const setLeftIndentToBalloon = ({ target, balloon, blockIdx, refs }) => {
+    const isBalloon = target && balloon;
+    if (!isBalloon) return;
+    const prevBalloon = refs.current[balloon.id - 2];
+    if (prevBalloon) {
+      const balloonIndent = prevBalloon.offsetWidth + prevBalloon.offsetLeft;
+      target.style.left = `${blockIdx === 0 ? 0 : balloonIndent}px`;
+    }
   };
 
   const getRandomCharacters = () => {
@@ -69,6 +79,7 @@ const usePopUpMainUI = (gameSettings, characters) => {
       startGame: start,
       changeBalloonCount,
       findHighestBalloon,
+      setLeftIndentToBalloon,
     },
     isGameRunning,
   };

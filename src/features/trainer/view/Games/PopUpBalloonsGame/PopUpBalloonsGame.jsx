@@ -1,12 +1,9 @@
 import block from 'bem-cn';
-import PT from 'prop-types';
 import { useMemo } from 'react';
-import { useRef } from 'react';
-import { getRandomKey } from 'shared/helpers';
 import { usePopUpBalloonsGame, useCharacterList } from 'hooks';
+import PopUpBlocks from './PopUpBlocks/PopUpBlocks';
 
 import './PopUpBalloonsGame.scss';
-import { useEffect } from 'react';
 
 const b = block('pop-up-balloons-game');
 
@@ -21,39 +18,21 @@ const PopUpBalloonsGame = () => {
   const {
     balloons,
     gameSettings,
-    startGame,
-    stopGame,
     isGameRunning,
-    balloonRef,
-    gameFieldRef,
+    gameBlocks,
+    refs: { gameFieldRef, balloonRefs, blockRefs },
+    UI: { startGame, stopGame, setLeftIndentToBalloon },
   } = usePopUpBalloonsGame(characters);
-
-  const BalloonComponent = ({ balloon }) =>
-    useMemo(() => {
-      return (
-        <div
-          id={balloon.id}
-          ref={(el) => balloonRef(el, balloon)}
-          className={b('balloon', { id: balloon.id })}
-        >
-          {balloon.characters.map((character, idx) => {
-            return (
-              <span key={getRandomKey(idx)} className={b('balloon__character')}>
-                {character}
-              </span>
-            );
-          })}
-        </div>
-      );
-    }, [balloons]);
 
   return (
     <div className={b()}>
       <div ref={gameFieldRef} className={b('game')}>
-        {!!balloons.length &&
-          balloons.map((balloon, idx) => (
-            <BalloonComponent key={getRandomKey(idx)} balloon={balloon} />
-          ))}
+        <PopUpBlocks
+          balloons={balloons}
+          refs={{ balloonRefs, blockRefs }}
+          gameBlocks={gameBlocks.blocks}
+          setLeftIndentToBalloon={setLeftIndentToBalloon}
+        />
       </div>
     </div>
   );

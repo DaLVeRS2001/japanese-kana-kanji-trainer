@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { popUpBalloonsGameDefaultSettings } from 'shared/utils/trash';
+import { popUpBalloonsGameDefaultSettings } from 'features/trainer/data';
 
 const usePopUpBalloonsSettings = () => {
   const { balloonCharacterCount, gameTime, balloonsSpeed } =
@@ -13,7 +13,7 @@ const usePopUpBalloonsSettings = () => {
     },
   });
 
-  return { gameSettings };
+  return { gameSettings, setGameSettings };
 };
 
 export default usePopUpBalloonsSettings;

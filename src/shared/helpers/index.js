@@ -1,5 +1,6 @@
 import validateEmail from './validateEmail';
 import cancelAllAnimationFrames from './cancelAllAnimationFrames';
+import createMultipleRef from './createMultipleRef';
 
 import {
   getUniqueArr,
@@ -19,4 +20,5 @@ export {
   getMinutes,
   getSeconds,
   getRandomKey,
+  createMultipleRef,
 };

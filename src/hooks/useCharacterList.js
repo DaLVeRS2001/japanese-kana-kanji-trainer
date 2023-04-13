@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { getUniqueArr, checkMatch } from 'shared/helpers';
 import { addNotify } from 'features/notify';
 import { useState } from 'react';
-import { characterTypes } from 'shared/utils/trash';
+import { characterTypes } from 'features/editor/data';
 import { useEffect } from 'react';
 
 const useCharacterList = () => {
