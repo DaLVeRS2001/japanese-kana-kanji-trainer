@@ -18,7 +18,7 @@ const PopUpBlocks = ({
 }) => {
   const { blockRefs, balloonRefs } = refs;
 
-  const BalloonComponent = ({ balloon, blockIdx }) =>
+  const BalloonComponent = ({ balloon, blockIdx, block }) =>
     useMemo(() => {
       return (
         <div
@@ -59,11 +59,12 @@ const PopUpBlocks = ({
           targetId: block.id,
         })
       }
-      style={{ top: `${block.top}px` }}
+      style={{ top: `calc(100% + ${block.top}px)` }}
       className={b('block')}
     >
       {balloons.slice(block.from, block.to).map((balloon, idx) => (
         <BalloonComponent
+          block={block}
           key={getRandomKey(idx)}
           balloon={balloon}
           blockIdx={idx}

@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { getRandomNumber } from 'shared/helpers';
+import { popUpBalloonsGameDefaultSettings } from 'features/trainer/data/index';
 import cancelAllAnimationFrames from 'shared/helpers/cancelAllAnimationFrames';
 
 const usePopUpMainUI = ({ gameSettings, characters }) => {
   let createBalloonTimeoutID;
+
+  const { gapsBetweenBalloons } = popUpBalloonsGameDefaultSettings;
 
   const [isGameRunning, startGame] = useState(false);
 
@@ -20,7 +23,9 @@ const usePopUpMainUI = ({ gameSettings, characters }) => {
     const prevBalloon = refs.current[balloon.id - 2];
     if (prevBalloon) {
       const balloonIndent = prevBalloon.offsetWidth + prevBalloon.offsetLeft;
-      target.style.left = `${blockIdx === 0 ? 0 : balloonIndent}px`;
+      target.style.left = `${
+        blockIdx === 0 ? 0 : balloonIndent + gapsBetweenBalloons.column
+      }px`;
     }
   };
 

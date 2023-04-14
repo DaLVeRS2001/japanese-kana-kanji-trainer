@@ -6,7 +6,6 @@ import usePopUpBlockBuilder from './usePopUpBlockBuilder';
 
 const usePopUpBalloonsGame = (characters = []) => {
   const { gameSettings } = usePopUpBalloonsSettings();
-
   const {
     UI: { startGame, stopGame, setLeftIndentToBalloon, findHighestBalloon },
     balloons,

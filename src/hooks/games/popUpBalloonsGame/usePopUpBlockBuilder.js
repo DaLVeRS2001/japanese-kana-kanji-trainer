@@ -1,3 +1,4 @@
+import { popUpBalloonsGameDefaultSettings } from 'features/trainer/data/index';
 import { useEffect, useState } from 'react';
 
 const usePopUpBlockBuilder = ({
@@ -6,6 +7,8 @@ const usePopUpBlockBuilder = ({
   balloonElements,
   gameFieldRef,
 }) => {
+  const { gapsBetweenBalloons } = popUpBalloonsGameDefaultSettings;
+
   const [gameBlocks, setGameBlocks] = useState({
     type: 0,
     blocks: [
@@ -24,17 +27,19 @@ const usePopUpBlockBuilder = ({
     const isSuccess = isBalloonOutsideGameField && gameBlocks.type === 0;
     if (isSuccess) {
       const highestBalloon = findHighestBalloon(balloonElements);
+      const idx = blocks.length - 1;
+      const id = blocks[idx].id + 1;
       setGameBlocks({
         type: 1,
         blocks: [
-          ...blocks.slice(0, blocks.length - 1),
-          { ...blocks[blocks.length - 1], to: +balloon.id - 1 },
+          ...blocks.slice(0, idx),
+          { ...blocks[idx], to: +balloon.id - 1 },
           {
-            id: blocks[blocks.length - 1].id + 1,
-            top: highestBalloon.offsetHeight + highestBalloon.offsetTop,
+            id,
+            top: gapsBetweenBalloons.row,
             from: +balloon.id - 1,
             to: undefined,
-            blockCount: blocks[blocks.length - 1].blockCount + 1,
+            blockCount: blocks[idx].blockCount + 1,
           },
         ],
       });
