@@ -18,6 +18,10 @@ const getRandomKey = (stuff = null) => {
   return key;
 };
 
+const findHighestElement = (elements) => {
+  return elements.sort((a, b) => b.offsetHeight - a.offsetHeight)[0];
+};
+
 export {
   getUniqueArr,
   checkMatch,
@@ -25,4 +29,5 @@ export {
   getMinutes,
   getSeconds,
   getRandomKey,
+  findHighestElement,
 };

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import usePopUpBalloonsSettings from './usePopUpSettings';
 import usePopUpMainUI from './usePopUpMainUI';
 import usePopUpAnimations from './usePopUpAnimations';
@@ -6,11 +6,6 @@ import usePopUpBlockBuilder from './usePopUpBlockBuilder';
 
 const usePopUpBalloonsGame = (characters = []) => {
   const { gameSettings } = usePopUpBalloonsSettings();
-  const {
-    UI: { startGame, stopGame, setLeftIndentToBalloon, findHighestBalloon },
-    balloons,
-    isGameRunning,
-  } = usePopUpMainUI({ gameSettings, characters });
 
   const [balloonRefs, blockRefs, gameFieldRef] = [
     useRef([]),
@@ -19,11 +14,21 @@ const usePopUpBalloonsGame = (characters = []) => {
   ];
   const balloonElements = balloonRefs.current ?? [];
 
-  usePopUpAnimations({ isGameRunning, balloons, balloonElements });
+  const {
+    UI: { startGame, stopGame, setLeftIndentToBalloon },
+    balloons,
+    isGameRunning,
+  } = usePopUpMainUI({ gameSettings, characters, balloonElements });
+
+  usePopUpAnimations({
+    isGameRunning,
+    balloons,
+    balloonElements,
+    gameFieldRef,
+  });
 
   const { gameBlocks } = usePopUpBlockBuilder({
     balloons,
-    findHighestBalloon,
     balloonElements,
     gameFieldRef,
   });

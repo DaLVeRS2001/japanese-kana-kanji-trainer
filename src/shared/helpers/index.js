@@ -1,6 +1,7 @@
 import validateEmail from './validateEmail';
 import cancelAllAnimationFrames from './cancelAllAnimationFrames';
 import createMultipleRef from './createMultipleRef';
+import getRandomLeftIndent from './getRandomLeftIndent';
 
 import {
   getUniqueArr,
@@ -9,6 +10,7 @@ import {
   getMinutes,
   getSeconds,
   getRandomKey,
+  findHighestElement,
 } from './helpers';
 
 export {
@@ -21,4 +23,6 @@ export {
   getSeconds,
   getRandomKey,
   createMultipleRef,
+  getRandomLeftIndent,
+  findHighestElement,
 };

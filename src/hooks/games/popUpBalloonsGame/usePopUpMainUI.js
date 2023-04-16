@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
-import { getRandomNumber } from 'shared/helpers';
-import { popUpBalloonsGameDefaultSettings } from 'features/trainer/data/index';
-import cancelAllAnimationFrames from 'shared/helpers/cancelAllAnimationFrames';
+import {
+  getRandomNumber,
+  getRandomLeftIndent,
+  cancelAllAnimationFrames,
+} from 'shared/helpers';
+import { popUpBalloonsGameDefaultSettings } from 'features/trainer/data';
 
-const usePopUpMainUI = ({ gameSettings, characters }) => {
+const usePopUpMainUI = ({ gameSettings, characters, balloonElements }) => {
   let createBalloonTimeoutID;
 
-  const { gapsBetweenBalloons } = popUpBalloonsGameDefaultSettings;
+  const { gapsBetweenBalloons, hasRandomOrder } =
+    popUpBalloonsGameDefaultSettings;
 
   const [isGameRunning, startGame] = useState(false);
 
@@ -23,9 +27,16 @@ const usePopUpMainUI = ({ gameSettings, characters }) => {
     const prevBalloon = refs.current[balloon.id - 2];
     if (prevBalloon) {
       const balloonIndent = prevBalloon.offsetWidth + prevBalloon.offsetLeft;
-      target.style.left = `${
-        blockIdx === 0 ? 0 : balloonIndent + gapsBetweenBalloons.column
-      }px`;
+      const gapColumn = hasRandomOrder ? 0 : gapsBetweenBalloons.column;
+      const left = blockIdx === 0 ? 0 : balloonIndent + gapColumn;
+      target.style.left = hasRandomOrder
+        ? getRandomLeftIndent(
+            balloon.randomLeftAdditionalPosition,
+            target,
+            left
+          )
+        : `${left}px`;
+      target.style.top = `${prevBalloon.offsetHeight}px`;
     }
   };
 
@@ -40,15 +51,18 @@ const usePopUpMainUI = ({ gameSettings, characters }) => {
     const newBalloon = {
       characters: getRandomCharacters(),
       id: balloons.length + 1,
+      randomLeftAdditionalPosition: [getRandomNumber(10), getRandomNumber(9)],
       animationFrame: (func) => requestAnimationFrame(func),
     };
     changeBalloonCount([...balloons, newBalloon]);
   };
 
   const startGameCreationTimeout = () => {
+    const interval =
+      balloons.length > 0 ? gameSettings.balloonsSpeed.creationInterval : 1;
     createBalloonTimeoutID = setTimeout(() => {
       handleChangeBalloonCount();
-    }, gameSettings.balloonsSpeed.creationInterval);
+    }, interval);
   };
 
   const stop = () => {
@@ -69,10 +83,6 @@ const usePopUpMainUI = ({ gameSettings, characters }) => {
     }
   };
 
-  const findHighestBalloon = (elements) => {
-    return elements.sort((a, b) => b.offsetHeight - a.offsetHeight)[0];
-  };
-
   useEffect(() => {
     if (isGameRunning) startGameCreationTimeout();
   }, [balloons]);
@@ -83,7 +93,6 @@ const usePopUpMainUI = ({ gameSettings, characters }) => {
       stopGame: stop,
       startGame: start,
       changeBalloonCount,
-      findHighestBalloon,
       setLeftIndentToBalloon,
     },
     isGameRunning,
