@@ -39,6 +39,7 @@ const PopUpBlocks = ({
           }
           className={b('balloon', { id: balloon.id })}
         >
+          <h1>{balloon.id}</h1>
           {balloon.characters.map((character, idx) => {
             return (
               <span key={getRandomKey(idx)} className={b('balloon__character')}>
@@ -59,7 +60,6 @@ const PopUpBlocks = ({
           targetId: block.id,
         })
       }
-      style={{ top: `calc(100% + ${block.top}px)` }}
       className={b('block')}
     >
       {balloons.slice(block.from, block.to).map((balloon, idx) => (

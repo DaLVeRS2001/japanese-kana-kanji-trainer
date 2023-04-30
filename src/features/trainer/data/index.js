@@ -17,13 +17,15 @@ const popUpBalloonsGameDefaultSettings = {
     isInfinite: false,
   },
   balloonsSpeed: {
-    speedUp: 4,
+    speedUp: 6,
     creationInterval: {
-      min: getSeconds(5),
+      min: getSeconds(1),
       max: getSeconds(20),
     },
   },
   hasRandomOrder: true,
 };
+
+// const startedHeightOfBalloonBottom =
 
 export { popUpBalloonsGameDefaultSettings };

@@ -18,6 +18,19 @@ const getRandomKey = (stuff = null) => {
   return key;
 };
 
+const getElementRectInfo = (element) => {
+  const targetRect = element.getBoundingClientRect();
+  return {
+    id: element.id,
+    width: element.offsetWidth,
+    height: element.offsetHeight,
+    left: targetRect.left,
+    top: targetRect.top,
+    bottom: targetRect.bottom,
+    right: targetRect.right,
+  };
+};
+
 const findHighestElement = (elements) => {
   return elements.sort((a, b) => b.offsetHeight - a.offsetHeight)[0];
 };
@@ -30,4 +43,5 @@ export {
   getSeconds,
   getRandomKey,
   findHighestElement,
+  getElementRectInfo,
 };

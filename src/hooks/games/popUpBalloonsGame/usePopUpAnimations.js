@@ -5,25 +5,26 @@ const usePopUpAnimations = ({ isGameRunning, balloons, balloonElements }) => {
   const { balloonsSpeed } = popUpBalloonsGameDefaultSettings;
 
   let start = 0;
+  let balloonSpeed = balloonsSpeed.speedUp;
+
   const setAnimationFrameToBalloon = (
     time,
     id,
     animationFrame,
     resetTime = false
   ) => {
-    if (resetTime) start = time;
     const filtered = balloonElements.filter((el) => el);
     const isGameNotFinished = isGameRunning && id && filtered.length;
     if (isGameNotFinished) {
+      if (resetTime) start = time;
       animationFrame((time) =>
         setAnimationFrameToBalloon(time, id, animationFrame)
       );
       const progress = time - start;
       const match = balloonElements.find((el) => +el.id === id);
-      const speed = (progress / 10000) * balloonsSpeed.speedUp * 100;
-      match.style.transform = `translateY(-${speed}px)`;
+      const speed = (progress / 10000) * balloonSpeed * 100;
+      match.style.bottom = `${speed - match.offsetHeight * 1.2}px`;
     }
-    return;
   };
 
   const animateBalloons = () => {

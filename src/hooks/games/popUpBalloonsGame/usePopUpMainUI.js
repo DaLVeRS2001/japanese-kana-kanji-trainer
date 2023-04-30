@@ -3,6 +3,7 @@ import {
   getRandomNumber,
   getRandomLeftIndent,
   cancelAllAnimationFrames,
+  moveElementsWithSameCoords,
 } from 'shared/helpers';
 import { popUpBalloonsGameDefaultSettings } from 'features/trainer/data';
 
@@ -24,19 +25,20 @@ const usePopUpMainUI = ({ gameSettings, characters, balloonElements }) => {
   const setLeftIndentToBalloon = ({ target, balloon, blockIdx, refs }) => {
     const isBalloon = target && balloon;
     if (!isBalloon) return;
+    target.style.bottom = `-${target.offsetHeight}px`;
     const prevBalloon = refs.current[balloon.id - 2];
     if (prevBalloon) {
       const balloonIndent = prevBalloon.offsetWidth + prevBalloon.offsetLeft;
       const gapColumn = hasRandomOrder ? 0 : gapsBetweenBalloons.column;
       const left = blockIdx === 0 ? 0 : balloonIndent + gapColumn;
       target.style.left = hasRandomOrder
-        ? getRandomLeftIndent(
-            balloon.randomLeftAdditionalPosition,
+        ? getRandomLeftIndent({
+            indent: balloon.randomLeftAdditionalPosition,
             target,
-            left
-          )
+            mainLeft: left,
+          })
         : `${left}px`;
-      target.style.top = `${prevBalloon.offsetHeight}px`;
+      moveElementsWithSameCoords(prevBalloon, target);
     }
   };
 

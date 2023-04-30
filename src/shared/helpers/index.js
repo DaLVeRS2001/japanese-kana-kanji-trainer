@@ -2,6 +2,7 @@ import validateEmail from './validateEmail';
 import cancelAllAnimationFrames from './cancelAllAnimationFrames';
 import createMultipleRef from './createMultipleRef';
 import getRandomLeftIndent from './getRandomLeftIndent';
+import moveElementsWithSameCoords from './moveElementsWithSameCoords';
 
 import {
   getUniqueArr,
@@ -11,6 +12,7 @@ import {
   getSeconds,
   getRandomKey,
   findHighestElement,
+  getElementRectInfo,
 } from './helpers';
 
 export {
@@ -25,4 +27,6 @@ export {
   createMultipleRef,
   getRandomLeftIndent,
   findHighestElement,
+  getElementRectInfo,
+  moveElementsWithSameCoords,
 };

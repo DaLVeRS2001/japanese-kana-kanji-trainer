@@ -1,9 +1,9 @@
-const getRandomLeftIndent = (
+const getRandomLeftIndent = ({
   indent,
   target,
   mainLeft,
-  additionalIndent = 0
-) => {
+  additionalIndent = 0,
+}) => {
   const splittedIndent = `${indent[0]}${indent[1]}`;
   switch (true) {
     case [10].includes(indent[0]):
