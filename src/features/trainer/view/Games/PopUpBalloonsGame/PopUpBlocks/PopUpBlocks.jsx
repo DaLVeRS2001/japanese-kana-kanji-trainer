@@ -60,6 +60,7 @@ const PopUpBlocks = ({
           targetId: block.id,
         })
       }
+      style={{ transform: `translateY(${block.top}px)` }}
       className={b('block')}
     >
       {balloons.slice(block.from, block.to).map((balloon, idx) => (

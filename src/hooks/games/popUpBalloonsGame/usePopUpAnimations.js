@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { popUpBalloonsGameDefaultSettings } from 'features/trainer/data';
+import { popUpBalloonsGameDefaultSettings } from 'shared/utils/data';
 
 const usePopUpAnimations = ({ isGameRunning, balloons, balloonElements }) => {
   const { balloonsSpeed } = popUpBalloonsGameDefaultSettings;

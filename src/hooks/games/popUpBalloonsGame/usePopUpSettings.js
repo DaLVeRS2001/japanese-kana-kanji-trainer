@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { popUpBalloonsGameDefaultSettings } from 'features/trainer/data';
+import { popUpBalloonsGameDefaultSettings } from 'shared/utils/data';
 
 const usePopUpBalloonsSettings = () => {
-  const { balloonCharacterCount, gameTime, balloonsSpeed } =
+  const { balloonCharacterCount, gameTime, balloonsSpeed, hasRandomOrder } =
     popUpBalloonsGameDefaultSettings;
 
   const [gameSettings, setGameSettings] = useState({
@@ -11,6 +11,7 @@ const usePopUpBalloonsSettings = () => {
     balloonsSpeed: {
       creationInterval: balloonsSpeed.creationInterval.min,
     },
+    hasRandomOrder,
   });
 
   return { gameSettings, setGameSettings };

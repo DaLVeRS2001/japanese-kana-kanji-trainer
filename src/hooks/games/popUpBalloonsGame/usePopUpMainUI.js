@@ -5,13 +5,12 @@ import {
   cancelAllAnimationFrames,
   moveElementsWithSameCoords,
 } from 'shared/helpers';
-import { popUpBalloonsGameDefaultSettings } from 'features/trainer/data';
+import { popUpBalloonsGameDefaultSettings } from 'shared/utils/data';
 
-const usePopUpMainUI = ({ gameSettings, characters, balloonElements }) => {
+const usePopUpMainUI = ({ gameSettings, characters }) => {
   let createBalloonTimeoutID;
 
-  const { gapsBetweenBalloons, hasRandomOrder } =
-    popUpBalloonsGameDefaultSettings;
+  const { gapsBetweenBalloons } = popUpBalloonsGameDefaultSettings;
 
   const [isGameRunning, startGame] = useState(false);
 
@@ -29,16 +28,18 @@ const usePopUpMainUI = ({ gameSettings, characters, balloonElements }) => {
     const prevBalloon = refs.current[balloon.id - 2];
     if (prevBalloon) {
       const balloonIndent = prevBalloon.offsetWidth + prevBalloon.offsetLeft;
-      const gapColumn = hasRandomOrder ? 0 : gapsBetweenBalloons.column;
+      const gapColumn = gameSettings.hasRandomOrder
+        ? 0
+        : gapsBetweenBalloons.column;
       const left = blockIdx === 0 ? 0 : balloonIndent + gapColumn;
-      target.style.left = hasRandomOrder
+      target.style.left = gameSettings.hasRandomOrder
         ? getRandomLeftIndent({
             indent: balloon.randomLeftAdditionalPosition,
             target,
             mainLeft: left,
           })
         : `${left}px`;
-      moveElementsWithSameCoords(prevBalloon, target);
+      moveElementsWithSameCoords({ prevEl: prevBalloon, currentEl: target });
     }
   };
 

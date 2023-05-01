@@ -1,6 +1,6 @@
 import block from 'bem-cn';
 import { useLocation } from 'react-router-dom';
-import { footerLinks } from 'shared/utils/trash';
+import { footerLinks } from 'shared/utils/data';
 import Button from 'components/Button';
 
 import './Footer.scss';

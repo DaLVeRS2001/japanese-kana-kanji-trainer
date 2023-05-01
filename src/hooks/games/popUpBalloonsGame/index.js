@@ -18,13 +18,12 @@ const usePopUpBalloonsGame = (characters = []) => {
     UI: { startGame, stopGame, setLeftIndentToBalloon },
     balloons,
     isGameRunning,
-  } = usePopUpMainUI({ gameSettings, characters, balloonElements });
+  } = usePopUpMainUI({ gameSettings, characters });
 
   usePopUpAnimations({
     isGameRunning,
     balloons,
     balloonElements,
-    gameFieldRef,
   });
 
   const { gameBlocks } = usePopUpBlockBuilder({

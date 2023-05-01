@@ -1,4 +1,4 @@
-import { popUpBalloonsGameDefaultSettings } from 'features/trainer/data';
+import { popUpBalloonsGameDefaultSettings } from 'shared/utils/data';
 import { useEffect, useState } from 'react';
 
 const usePopUpBlockBuilder = ({ balloons, balloonElements, gameFieldRef }) => {
@@ -48,6 +48,10 @@ const usePopUpBlockBuilder = ({ balloons, balloonElements, gameFieldRef }) => {
         lastBalloon;
       const isBalloonOutsideGameField =
         balloonWidth + balloonLeft > gameFieldWidth;
+      // console.log(
+      //   balloonWidth + balloonLeft > gameFieldWidth || balloonLeft < 0,
+      //   balloonLeft
+      // );
       constructBlock(isBalloonOutsideGameField, lastBalloon);
     }
   };
