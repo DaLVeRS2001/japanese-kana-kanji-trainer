@@ -62,11 +62,11 @@ const Editor = () => {
             onChange={handleInputChange}
             value={state.character}
             name="character"
-            tooltip="The whole text in this field will be defined as a single character"
-            placeholder="Character"
+            tooltip="The whole text in this field will be defined as a single row"
+            placeholder="Row"
           />
           <Button
-            text="Add character"
+            text="Add character row"
             callBack={() =>
               handleCharacterList(characterTypes[0], state.character)
             }
@@ -76,12 +76,12 @@ const Editor = () => {
           <Input
             onChange={handleInputChange}
             value={state.multipleCharacters}
-            tooltip="Enter the list of characters (that you want to add) separated by commas: 1, 2, 3..."
-            placeholder="Character, Character..."
+            tooltip="Enter the list of character rows (that you want to add) separated by commas: 1, 2, 3..."
+            placeholder="Row, Row..."
             name="multipleCharacters"
           />
           <Button
-            text="Add typed characters"
+            text="Add few character rows"
             callBack={() =>
               handleCharacterList(characterTypes[1], state.multipleCharacters)
             }
@@ -92,11 +92,11 @@ const Editor = () => {
             onChange={handleInputChange}
             value={state.removedCharacters}
             name="removedCharacters"
-            tooltip="Enter the list of characters (that you want to remove) separated by commas: 1, 2, 3..."
-            placeholder="Character, Character..."
+            tooltip="Enter the list of character rows (that you want to remove) separated by commas: 1, 2, 3..."
+            placeholder="Row, Row..."
           />
           <Button
-            text="Remove typed characters"
+            text="Remove few character rows"
             callBack={() =>
               handleCharacterList(characterTypes[3], state.removedCharacters)
             }

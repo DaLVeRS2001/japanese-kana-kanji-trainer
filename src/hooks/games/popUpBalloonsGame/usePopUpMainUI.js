@@ -17,7 +17,7 @@ const usePopUpMainUI = ({ gameSettings, characters }) => {
   const [balloons, changeBalloonCount] = useState([]);
 
   const getRandomCharacterCountInBalloon = () => {
-    const maxCount = gameSettings.balloonCharacterCount;
+    const maxCount = gameSettings.characterRowCount;
     return getRandomNumber(maxCount);
   };
 

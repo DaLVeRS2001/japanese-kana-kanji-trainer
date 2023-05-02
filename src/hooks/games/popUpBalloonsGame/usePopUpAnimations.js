@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
-import { popUpBalloonsGameDefaultSettings } from 'shared/utils/data';
 
-const usePopUpAnimations = ({ isGameRunning, balloons, balloonElements }) => {
-  const { balloonsSpeed } = popUpBalloonsGameDefaultSettings;
-
+const usePopUpAnimations = ({
+  isGameRunning,
+  balloons,
+  balloonElements,
+  gameSettings,
+}) => {
   let start = 0;
-  let balloonSpeed = balloonsSpeed.speedUp;
+  let balloonSpeed = gameSettings.balloonsSpeed.speedUp;
 
   const setAnimationFrameToBalloon = (
     time,

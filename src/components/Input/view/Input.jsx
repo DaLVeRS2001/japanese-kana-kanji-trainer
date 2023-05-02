@@ -80,7 +80,7 @@ const Input = ({
           valid: restProps.isValid,
           hasMeasurement: Boolean(measurement),
         })}
-        type={/* isPassword */ passwordVisible ? 'text' : type}
+        type={passwordVisible ? 'text' : type}
         name={name}
         value={value}
         placeholder={placeholder}
@@ -109,11 +109,12 @@ const Input = ({
 Input.propTypes = {
   color: PT.string,
   fontSize: PT.string,
-  value: PT.string.isRequired,
+  value: PT.oneOfType([PT.string, PT.number]).isRequired,
   name: PT.string.isRequired,
   placeholder: PT.string,
   type: PT.string,
   measurement: PT.string,
+  tooltip: PT.oneOfType([PT.string]),
   onChange: PT.func.isRequired,
 };
 

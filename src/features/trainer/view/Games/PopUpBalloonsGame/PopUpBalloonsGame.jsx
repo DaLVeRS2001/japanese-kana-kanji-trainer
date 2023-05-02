@@ -2,6 +2,8 @@ import block from 'bem-cn';
 import { useMemo } from 'react';
 import { usePopUpBalloonsGame, useCharacterList } from 'hooks';
 import PopUpBlocks from './PopUpBlocks/PopUpBlocks';
+import PopUpSettings from './PopUpSettings/PopUpSettings';
+import test from './img/background.png';
 
 import './PopUpBalloonsGame.scss';
 
@@ -21,18 +23,27 @@ const PopUpBalloonsGame = () => {
     isGameRunning,
     gameBlocks,
     refs: { gameFieldRef, balloonRefs, blockRefs },
-    UI: { startGame, stopGame, setLeftIndentToBalloon },
+    UI: { startGame, stopGame, settingHandlers, setLeftIndentToBalloon },
   } = usePopUpBalloonsGame(characters);
 
   return (
-    <div className={b()}>
+    <div className={b({ isGameRunning })}>
       <div ref={gameFieldRef} className={b('game')}>
-        <PopUpBlocks
-          balloons={balloons}
-          refs={{ balloonRefs, blockRefs }}
-          gameBlocks={gameBlocks.blocks}
-          setLeftIndentToBalloon={setLeftIndentToBalloon}
-        />
+        {isGameRunning ? (
+          <PopUpBlocks
+            balloons={balloons}
+            refs={{ balloonRefs, blockRefs }}
+            gameBlocks={gameBlocks.blocks}
+            setLeftIndentToBalloon={setLeftIndentToBalloon}
+          />
+        ) : (
+          <PopUpSettings
+            settingHandlers={settingHandlers}
+            stopGame={stopGame}
+            startGame={startGame}
+            gameSettings={gameSettings}
+          />
+        )}
       </div>
     </div>
   );

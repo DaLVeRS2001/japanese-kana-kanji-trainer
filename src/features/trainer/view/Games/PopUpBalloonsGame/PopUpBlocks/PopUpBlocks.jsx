@@ -1,14 +1,12 @@
 import block from 'bem-cn';
 import PT from 'prop-types';
-import { useMemo } from 'react';
-import { getRandomKey } from 'shared/helpers';
-import { createMultipleRef } from 'shared/helpers';
+import { getRandomKey, createMultipleRef } from 'shared/helpers';
+import { refsProp } from 'shared/utils/data';
+import PopUpBalloon from './PopUpBalloon/PopUpBalloon';
 
 import './PopUpBlocks.scss';
 
 const b = block('pop-up-blocks');
-
-const refsProp = PT.shape({ current: PT.arrayOf(PT.instanceOf(Element)) });
 
 const PopUpBlocks = ({
   refs,
@@ -18,41 +16,9 @@ const PopUpBlocks = ({
 }) => {
   const { blockRefs, balloonRefs } = refs;
 
-  const BalloonComponent = ({ balloon, blockIdx }) =>
-    useMemo(() => {
-      return (
-        <div
-          id={balloon.id}
-          ref={(el) =>
-            createMultipleRef({
-              target: el,
-              refs: balloonRefs,
-              targetId: balloon.id,
-              callback: () =>
-                setLeftIndentToBalloon({
-                  target: el,
-                  refs: balloonRefs,
-                  balloon,
-                  blockIdx,
-                }),
-            })
-          }
-          className={b('balloon', { id: balloon.id })}
-        >
-          <h1>{balloon.id}</h1>
-          {balloon.characters.map((character, idx) => {
-            return (
-              <span key={getRandomKey(idx)} className={b('balloon__character')}>
-                {character}
-              </span>
-            );
-          })}
-        </div>
-      );
-    }, [balloons]);
-
   const Blocks = gameBlocks.map((block) => (
     <div
+      key={block.id}
       ref={(el) =>
         createMultipleRef({
           target: el,
@@ -64,10 +30,12 @@ const PopUpBlocks = ({
       className={b('block')}
     >
       {balloons.slice(block.from, block.to).map((balloon, idx) => (
-        <BalloonComponent
+        <PopUpBalloon
           key={getRandomKey(idx)}
           balloon={balloon}
           blockIdx={idx}
+          balloonRefs={balloonRefs}
+          setLeftIndentToBalloon={setLeftIndentToBalloon}
         />
       ))}
     </div>

@@ -43,16 +43,14 @@ const usePopUpBlockBuilder = ({ balloons, balloonElements, gameFieldRef }) => {
   const lowerBalloonsToNextLine = () => {
     if (!!balloons.length) {
       const lastBalloon = balloonElements[balloons.length - 1];
-      const gameFieldWidth = gameFieldRef.current.offsetWidth;
-      const { offsetWidth: balloonWidth, offsetLeft: balloonLeft } =
-        lastBalloon;
-      const isBalloonOutsideGameField =
-        balloonWidth + balloonLeft > gameFieldWidth;
-      // console.log(
-      //   balloonWidth + balloonLeft > gameFieldWidth || balloonLeft < 0,
-      //   balloonLeft
-      // );
-      constructBlock(isBalloonOutsideGameField, lastBalloon);
+      if (lastBalloon) {
+        const gameFieldWidth = gameFieldRef.current.offsetWidth;
+        const { offsetWidth: balloonWidth, offsetLeft: balloonLeft } =
+          lastBalloon;
+        const isBalloonOutsideGameField =
+          balloonWidth + balloonLeft > gameFieldWidth;
+        constructBlock(isBalloonOutsideGameField, lastBalloon);
+      }
     }
   };
 

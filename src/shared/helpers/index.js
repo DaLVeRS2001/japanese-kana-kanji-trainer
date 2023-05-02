@@ -3,6 +3,7 @@ import cancelAllAnimationFrames from './cancelAllAnimationFrames';
 import createMultipleRef from './createMultipleRef';
 import getRandomLeftIndent from './getRandomLeftIndent';
 import moveElementsWithSameCoords from './moveElementsWithSameCoords';
+import getMatchedCharacters from './getMatchedCharacters';
 
 import {
   getUniqueArr,
@@ -29,4 +30,5 @@ export {
   findHighestElement,
   getElementRectInfo,
   moveElementsWithSameCoords,
+  getMatchedCharacters,
 };

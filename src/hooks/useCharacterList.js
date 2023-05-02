@@ -1,6 +1,7 @@
 import useLocalStorage from './useLocalStorage';
 import { useDispatch } from 'react-redux';
-import { getUniqueArr, checkMatch } from 'shared/helpers';
+import { getUniqueArr, checkMatch, getMatchedCharacters } from 'shared/helpers';
+import { popUpBalloonsGameDefaultSettings } from 'shared/utils/data';
 import { addNotify } from 'features/notify';
 import { useState } from 'react';
 import { characterTypes } from 'features/editor/data';
@@ -9,6 +10,8 @@ import { useEffect } from 'react';
 const useCharacterList = () => {
   const storage = useLocalStorage();
   const dispatch = useDispatch();
+  const maxCharacterCount =
+    popUpBalloonsGameDefaultSettings.maxCharacterCountInRow;
 
   const KEY = 'characters';
 
@@ -19,37 +22,20 @@ const useCharacterList = () => {
     list: getCharacters(),
   });
 
-  const getMatchedCharacters = (characters, type) => {
-    const isRemove = type === 'remove';
-    const filterCharacterByType = (character) => {
-      const [removeCondition, addCondition] = [
-        isRemove ? false : character,
-        isRemove ? character : false,
-      ];
-      return checkMatch(getCharacters(), character)
-        ? removeCondition
-        : addCondition;
-    };
-    return characters.length
-      ? characters
-          .map((character) => filterCharacterByType(character))
-          .filter((el) => el)
-      : [];
-  };
-
   const sendNotice = (text, type) => dispatch(addNotify(text, type));
 
-  const sendNoticeForMultiple = (characters, type) =>
+  const sendNoticeForMultiple = (characters, type) => {
     sendNotice(
       characters.length === 1
-        ? `There is ${type === 'add' ? 'already' : 'no'} such a character: "${
+        ? `There is ${type === 'add' ? 'already' : 'no'} such a row: "${
             characters[0]
           }"`
         : `There is ${
             type === 'add' ? 'already' : 'no'
-          } such characters: "${characters.join(',')}"`,
+          } such rows: "${characters.join(',')}"`,
       'error'
     );
+  };
 
   const characterListUI = {
     clearList: () => {
@@ -69,8 +55,13 @@ const useCharacterList = () => {
     },
     removeMultipleItems: (c) => {
       const characters = getUniqueArr(c);
-      const matchedCharacters = getMatchedCharacters(characters, 'remove');
-      if (!!matchedCharacters.length) sendNoticeForMultiple(matchedCharacters);
+      const matchedCharacters = getMatchedCharacters({
+        localCharacters: characters,
+        type: 'remove',
+        storageCharacters: getCharacters(),
+      });
+      if (!!matchedCharacters.length)
+        sendNoticeForMultiple(matchedCharacters, 'remove');
       else {
         const filteredCharacters = getCharacters().filter(
           (character) => characters.indexOf(character) === -1
@@ -82,16 +73,29 @@ const useCharacterList = () => {
     addItem: (character) => {
       const characters = getCharacters();
       const match = checkMatch(characters, character);
-      if (match)
-        sendNotice('There is already such a character in the list', 'error');
+      if (character.length > maxCharacterCount)
+        sendNotice(`Max characters in a row is ${maxCharacterCount}`, 'error');
+      else if (match)
+        sendNotice('There is already such a row in the list', 'error');
       else {
         storage.add(KEY, getUniqueArr([...getCharacters(), character]));
         sendNotice('Added successfully', 'success');
       }
     },
     addMultipleItems: (characters) => {
-      const matchedCharacters = getMatchedCharacters(characters, 'add');
-      if (!!matchedCharacters.length) sendNoticeForMultiple(matchedCharacters);
+      const matchedCharacters = getMatchedCharacters({
+        localCharacters: characters,
+        type: 'add',
+        storageCharacters: getCharacters(),
+      });
+      const isMaxCharactersInRow =
+        characters
+          .map((character) => character.length > maxCharacterCount)
+          .filter((el) => el)[0] ?? false;
+      if (isMaxCharactersInRow)
+        sendNotice(`Max characters in a row is ${maxCharacterCount}`, 'error');
+      else if (!!matchedCharacters.length)
+        sendNoticeForMultiple(matchedCharacters, 'add');
       else {
         storage.add(KEY, getUniqueArr([...getCharacters(), ...characters]));
         sendNotice('Added successfully', 'success');

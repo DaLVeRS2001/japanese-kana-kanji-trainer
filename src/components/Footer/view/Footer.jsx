@@ -16,7 +16,7 @@ const Footer = () => {
           <Button
             link={link.link}
             text={link.name}
-            active={location.pathname === link.link}
+            active={location.pathname.includes(link.link)}
           />
         </div>
       ))}

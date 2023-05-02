@@ -1,0 +1,14 @@
+.pop-up-settings {
+    box-sizing: border-box;
+    width: 100%;
+    border: 0.0625rem solid black;
+    padding: 0.625rem;
+    border-radius: 0.3125rem;
+    box-shadow: inset -0.0156rem -0.0156rem 0.3125rem black;
+
+    &__input {
+        &-text {
+            margin-left: 0.3125rem;
+        }
+    }
+}

@@ -57,15 +57,7 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|webp)$/i,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 10000,
-              name: 'public/[name].[ext]',
-            },
-          },
-        ],
+        type: 'asset/resource',
       },
       {
         test: /\.svg$/,
