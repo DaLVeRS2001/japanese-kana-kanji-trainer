@@ -7,8 +7,13 @@
     box-shadow: inset -0.0156rem -0.0156rem 0.3125rem black;
 
     &__input {
+        margin-bottom: 1.25rem;
         &-text {
+            display: inline-block;
             margin-left: 0.3125rem;
+        }
+        &_switcher &-text {
+            margin-bottom: 0.3125rem;
         }
     }
 }

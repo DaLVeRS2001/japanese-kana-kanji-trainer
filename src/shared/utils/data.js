@@ -53,14 +53,14 @@ const popUpBalloonsGameDefaultSettings = {
     max: 10,
   },
   gameTime: {
-    default: getMinutes(5),
-    max: getMinutes(60),
+    default: 5,
+    max: 60,
     isInfinite: false,
   },
   get balloonsSpeed() {
     return {
       speedUp: this.gameDifficult.speedUp,
-      creationInterval: getSeconds(this.gameDifficult.creationInterval),
+      creationInterval: this.gameDifficult.creationInterval,
     };
   },
   hasRandomOrder: true,

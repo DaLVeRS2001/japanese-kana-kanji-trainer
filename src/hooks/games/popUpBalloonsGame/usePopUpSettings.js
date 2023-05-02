@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import {
   popUpBalloonsGameDefaultSettings,
   popUpBalloonsGameDifficulties,
@@ -13,8 +13,16 @@ const usePopUpBalloonsSettings = () => {
     gameDifficult,
   } = popUpBalloonsGameDefaultSettings;
 
+  const difficulties = useMemo(
+    () =>
+      [...Object.values(popUpBalloonsGameDifficulties)].map(
+        ({ value, name }) => ({ value, name })
+      ),
+    []
+  );
+
   const defaultSettings = {
-    characterRowCount: +characterRowCount.default,
+    characterRowCount: characterRowCount.default,
     gameTime: { time: gameTime.default, isInfinite: gameTime.isInfinite },
     balloonsSpeed: {
       creationInterval: balloonsSpeed.creationInterval,
@@ -42,22 +50,29 @@ const usePopUpBalloonsSettings = () => {
     time = gameTime.default,
     isInfinite = gameTime.isInfinite,
   }) => {
-    setGameSettings({ ...gameSettings, gameTime: { time, isInfinite } });
+    if (time >= 0 && time <= gameTime.max)
+      setGameSettings({ ...gameSettings, gameTime: { time, isInfinite } });
   };
 
   const changeCharacterCountInRow = (count = characterRowCount.default) => {
-    setGameSettings({ ...gameSettings, characterRowCount: +count });
+    if (count >= 0 && count <= characterRowCount.max)
+      setGameSettings({ ...gameSettings, characterRowCount: count });
+  };
+
+  const changeBalloonsOrder = (has = hasRandomOrder) => {
+    setGameSettings({ ...gameSettings, hasRandomOrder: has });
   };
 
   const resetSettings = () => setGameSettings({ ...defaultSettings });
 
   return {
     gameSettings,
+    difficulties,
     settingHandlers: {
-      setGameSettings,
       changeGameTime,
       changeGameDifficult,
       changeCharacterCountInRow,
+      changeBalloonsOrder,
       resetSettings,
     },
   };

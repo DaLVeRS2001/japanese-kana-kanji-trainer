@@ -22,6 +22,7 @@ const PopUpBalloonsGame = () => {
     gameSettings,
     isGameRunning,
     gameBlocks,
+    difficulties,
     refs: { gameFieldRef, balloonRefs, blockRefs },
     UI: { startGame, stopGame, settingHandlers, setLeftIndentToBalloon },
   } = usePopUpBalloonsGame(characters);
@@ -39,6 +40,7 @@ const PopUpBalloonsGame = () => {
         ) : (
           <PopUpSettings
             settingHandlers={settingHandlers}
+            difficulties={difficulties}
             stopGame={stopGame}
             startGame={startGame}
             gameSettings={gameSettings}

@@ -5,7 +5,8 @@ import usePopUpAnimations from './usePopUpAnimations';
 import usePopUpBlockBuilder from './usePopUpBlockBuilder';
 
 const usePopUpBalloonsGame = (characters = []) => {
-  const { gameSettings, settingHandlers } = usePopUpBalloonsSettings();
+  const { gameSettings, settingHandlers, difficulties } =
+    usePopUpBalloonsSettings();
 
   const [balloonRefs, blockRefs, gameFieldRef] = [
     useRef([]),
@@ -34,7 +35,7 @@ const usePopUpBalloonsGame = (characters = []) => {
   });
 
   useEffect(() => {
-    // startGame(true);
+    startGame(true);
     return () => stopGame();
   }, []);
 
@@ -43,6 +44,7 @@ const usePopUpBalloonsGame = (characters = []) => {
     gameSettings,
     gameBlocks,
     isGameRunning,
+    difficulties,
     refs: {
       balloonRefs,
       gameFieldRef,

@@ -1,13 +1,20 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addNotify } from 'features/notify';
 import {
   getRandomNumber,
   getRandomLeftIndent,
   cancelAllAnimationFrames,
   moveElementsWithSameCoords,
+  getSeconds,
+  getMinutes,
 } from 'shared/helpers';
 import { popUpBalloonsGameDefaultSettings } from 'shared/utils/data';
 
 const usePopUpMainUI = ({ gameSettings, characters }) => {
+  const dispatch = useDispatch();
+  const sendNotice = (text, type) => dispatch(addNotify(text, type));
+
   let createBalloonTimeoutID;
 
   const { gapsBetweenBalloons } = popUpBalloonsGameDefaultSettings;
@@ -62,7 +69,9 @@ const usePopUpMainUI = ({ gameSettings, characters }) => {
 
   const startGameCreationTimeout = () => {
     const interval =
-      balloons.length > 0 ? gameSettings.balloonsSpeed.creationInterval : 1;
+      balloons.length > 0
+        ? getSeconds(gameSettings.balloonsSpeed.creationInterval)
+        : 1;
     createBalloonTimeoutID = setTimeout(() => {
       handleChangeBalloonCount();
     }, interval);
@@ -75,14 +84,32 @@ const usePopUpMainUI = ({ gameSettings, characters }) => {
   };
 
   const start = () => {
-    startGame(true);
-    startGameCreationTimeout();
-    const isGameWithTimeLimit =
-      !gameSettings.gameTime.isInfinite && !balloons.length;
-    if (isGameWithTimeLimit) {
-      setTimeout(() => {
-        stop();
-      }, [gameSettings.gameTime.time]);
+    const [isTimeZero, isCharacterCountZero, isNoCharacters] = [
+      gameSettings.gameTime.time === 0,
+      gameSettings.characterRowCount === 0,
+      !characters.length,
+    ];
+    switch (true) {
+      case isTimeZero:
+        return sendNotice('Game time is 0', 'error');
+      case isCharacterCountZero:
+        return sendNotice('Character row count is 0', 'error');
+      case isNoCharacters:
+        return sendNotice(
+          'You have added no character yet to start the game',
+          'error'
+        );
+      default:
+        startGame(true);
+        startGameCreationTimeout();
+        const isGameWithTimeLimit =
+          !gameSettings.gameTime.isInfinite && !balloons.length;
+        if (isGameWithTimeLimit) {
+          const timeoutTime = getMinutes(gameSettings.gameTime.time);
+          setTimeout(() => {
+            stop();
+          }, [timeoutTime]);
+        }
     }
   };
 

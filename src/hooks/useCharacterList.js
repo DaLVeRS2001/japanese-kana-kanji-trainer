@@ -92,13 +92,17 @@ const useCharacterList = () => {
         characters
           .map((character) => character.length > maxCharacterCount)
           .filter((el) => el)[0] ?? false;
-      if (isMaxCharactersInRow)
-        sendNotice(`Max characters in a row is ${maxCharacterCount}`, 'error');
-      else if (!!matchedCharacters.length)
-        sendNoticeForMultiple(matchedCharacters, 'add');
-      else {
-        storage.add(KEY, getUniqueArr([...getCharacters(), ...characters]));
-        sendNotice('Added successfully', 'success');
+      switch (true) {
+        case isMaxCharactersInRow:
+          return sendNotice(
+            `Max characters in a row is ${maxCharacterCount}`,
+            'error'
+          );
+        case !!matchedCharacters.length:
+          return sendNoticeForMultiple(matchedCharacters, 'add');
+        default:
+          storage.add(KEY, getUniqueArr([...getCharacters(), ...characters]));
+          sendNotice('Added successfully', 'success');
       }
     },
     getList: () => getCharacters(),
