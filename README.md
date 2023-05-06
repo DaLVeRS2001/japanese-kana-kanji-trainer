@@ -15,7 +15,7 @@
 # Refactoring/Optimization
 
 0. reduce bundler as much as possible
-1. set useMemo for all hooks
+1. set useMemo for all hooks, useCallbacks
 2. convert func arguments to {} if the func has more than one arg
 3. delete the element when it gets to the top
 4. change px to rem in js

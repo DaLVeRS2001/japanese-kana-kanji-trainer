@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:100,400,700,900");
 
-$Root_em: 16;
+$Root_em: 20;
 
 :global {
   #root,
@@ -16,7 +16,7 @@ $Root_em: 16;
   * {
     font-size: $Root_em + px;
     @media (max-width: 1024px) {
-      font-size: calc($Root_em / 1.5) + px;
+      font-size: calc($Root_em / 1.6) + px;
     }
   }
 

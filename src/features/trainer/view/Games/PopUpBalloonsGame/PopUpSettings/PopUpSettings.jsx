@@ -1,8 +1,13 @@
+import React, { useState } from 'react';
+import Modal from 'components/Modal';
 import block from 'bem-cn';
 import PT from 'prop-types';
+
 import Input from 'components/Input';
 import Switcher from 'components/Switcher';
 import Select from 'components/Select';
+import Button from 'components/Button';
+import ConfirmationWindow from 'components/ConfirmationWindow';
 import { settingTooltipFields } from './data';
 
 import './PopUpSettings.scss';
@@ -11,7 +16,6 @@ const b = block('pop-up-settings');
 
 const PopUpSettings = ({
   settingHandlers,
-  stopGame,
   startGame,
   gameSettings,
   difficulties,
@@ -23,12 +27,23 @@ const PopUpSettings = ({
     changeBalloonsOrder,
     resetSettings,
   } = settingHandlers;
-
   const { characterRowCount, gameTime, hasRandomOrder, gameDifficult } =
     gameSettings;
 
+  const [isConfirmWindowOpen, changeConfirmWindow] = useState(false);
+
+  const handleOnConfirmWindow = (type) => {
+    const isConfirmed = type === 1;
+    if (isConfirmed) resetSettings();
+    changeConfirmWindow(false);
+  };
   return (
     <div className={b()}>
+      {isConfirmWindowOpen && (
+        <Modal onClose={handleOnConfirmWindow}>
+          <ConfirmationWindow callBack={handleOnConfirmWindow} />
+        </Modal>
+      )}
       <div className={b('input')}>
         <strong className={b('input-text')}>Character count in row:</strong>
         <Input
@@ -44,7 +59,12 @@ const PopUpSettings = ({
         <Input
           name="game-time"
           type="number"
-          onChange={(e) => changeGameTime({ time: +e.currentTarget.value })}
+          onChange={(e) =>
+            changeGameTime({
+              time: +e.currentTarget.value,
+              isInfinite: gameTime.isInfinite,
+            })
+          }
           value={gameTime.time}
           tooltip={settingTooltipFields[1]}
         />
@@ -80,6 +100,15 @@ const PopUpSettings = ({
           onChange={changeGameDifficult}
         />
       </div>
+
+      <div className={b('buttons')}>
+        <Button text="Start Game" callBack={startGame} background="green" />
+        <Button
+          text="Reset Settings"
+          callBack={() => changeConfirmWindow(!isConfirmWindowOpen)}
+          background="red"
+        />
+      </div>
     </div>
   );
 };
@@ -88,7 +117,6 @@ PopUpSettings.propTypes = {
   gameSettings: PT.object.isRequired,
   difficulties: PT.array.isRequired,
   settingHandlers: PT.objectOf(PT.func).isRequired,
-  stopGame: PT.func.isRequired,
   startGame: PT.func.isRequired,
 };
 

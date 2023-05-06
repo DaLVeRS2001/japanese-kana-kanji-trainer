@@ -32,10 +32,10 @@ const usePopUpBalloonsGame = (characters = []) => {
     balloons,
     balloonElements,
     gameFieldRef,
+    isGameRunning,
   });
 
   useEffect(() => {
-    startGame(true);
     return () => stopGame();
   }, []);
 

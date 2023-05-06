@@ -15,6 +15,8 @@ const footerLinks = [
   { name: 'List Editor', link: '/list-editor' },
 ];
 
+const gameNames = ['popUpBalloons'];
+
 const popUpBalloonsGameDifficulties = {
   1: {
     name: 'Low',
@@ -73,4 +75,5 @@ export {
   popUpBalloonsGameDifficulties,
   refsProp,
   Root_em,
+  gameNames,
 };

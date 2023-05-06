@@ -5,4 +5,8 @@
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
   background-color: #ececec;
+
+  &_isAnyGameActive {
+    grid-template-rows: 1fr;
+  }
 }

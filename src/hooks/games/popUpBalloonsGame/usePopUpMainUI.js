@@ -1,25 +1,35 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { addNotify } from 'features/notify';
+import { actions as trainerActions } from 'features/trainer';
 import {
+  getSeconds,
+  getMinutes,
   getRandomNumber,
+  cancelAllTimeouts,
   getRandomLeftIndent,
   cancelAllAnimationFrames,
   moveElementsWithSameCoords,
-  getSeconds,
-  getMinutes,
 } from 'shared/helpers';
-import { popUpBalloonsGameDefaultSettings } from 'shared/utils/data';
+import { gameNames, popUpBalloonsGameDefaultSettings } from 'shared/utils/data';
 
 const usePopUpMainUI = ({ gameSettings, characters }) => {
   const dispatch = useDispatch();
-  const sendNotice = (text, type) => dispatch(addNotify(text, type));
 
-  let createBalloonTimeoutID;
+  const isGameRunning = useSelector(
+    (state) => state.trainer.activeGames[gameNames[0]],
+    shallowEqual
+  );
+
+  const sendNotice = (text, type) => dispatch(addNotify(text, type));
 
   const { gapsBetweenBalloons } = popUpBalloonsGameDefaultSettings;
 
-  const [isGameRunning, startGame] = useState(false);
+  const startGame = (isActive) => {
+    dispatch(
+      trainerActions.changeActiveGame({ gameName: gameNames[0], isActive })
+    );
+  };
 
   const [balloons, changeBalloonCount] = useState([]);
 
@@ -72,17 +82,17 @@ const usePopUpMainUI = ({ gameSettings, characters }) => {
       balloons.length > 0
         ? getSeconds(gameSettings.balloonsSpeed.creationInterval)
         : 1;
-    createBalloonTimeoutID = setTimeout(() => {
+    setTimeout(() => {
       handleChangeBalloonCount();
     }, interval);
   };
 
   const stop = () => {
-    cancelAllAnimationFrames();
-    clearTimeout(createBalloonTimeoutID);
     startGame(false);
+    cancelAllTimeouts();
+    cancelAllAnimationFrames();
+    changeBalloonCount([]);
   };
-
   const start = () => {
     const [isTimeZero, isCharacterCountZero, isNoCharacters] = [
       gameSettings.gameTime.time === 0,

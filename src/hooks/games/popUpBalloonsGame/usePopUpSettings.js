@@ -1,8 +1,11 @@
+import { useEffect } from 'react';
 import { useState, useMemo } from 'react';
+import useLocalStorage from 'hooks/useLocalStorage';
 import {
   popUpBalloonsGameDefaultSettings,
   popUpBalloonsGameDifficulties,
 } from 'shared/utils/data';
+import { useCallback } from 'react';
 
 const usePopUpBalloonsSettings = () => {
   const {
@@ -12,6 +15,8 @@ const usePopUpBalloonsSettings = () => {
     hasRandomOrder,
     gameDifficult,
   } = popUpBalloonsGameDefaultSettings;
+
+  const storage = useLocalStorage();
 
   const difficulties = useMemo(
     () =>
@@ -32,7 +37,12 @@ const usePopUpBalloonsSettings = () => {
     gameDifficult,
   };
 
-  const [gameSettings, setGameSettings] = useState({ ...defaultSettings });
+  const localSettings = useMemo(
+    () => storage.get('settings') ?? defaultSettings,
+    []
+  );
+
+  const [gameSettings, setGameSettings] = useState({ ...localSettings });
 
   const changeGameDifficult = (type = gameDifficult.value) => {
     const difficult = popUpBalloonsGameDifficulties[type] ?? gameDifficult;
@@ -64,6 +74,10 @@ const usePopUpBalloonsSettings = () => {
   };
 
   const resetSettings = () => setGameSettings({ ...defaultSettings });
+
+  useEffect(() => {
+    storage.add('settings', gameSettings);
+  }, [gameSettings]);
 
   return {
     gameSettings,

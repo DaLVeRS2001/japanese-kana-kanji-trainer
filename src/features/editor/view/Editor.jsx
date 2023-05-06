@@ -1,7 +1,9 @@
 import block from 'bem-cn';
 import React, { useState } from 'react';
+
 import { useCharacterList } from 'hooks';
 import { characterTypes } from 'features/editor/data';
+
 import Input from 'components/Input';
 import Button from 'components/Button';
 import Modal from 'components/Modal';

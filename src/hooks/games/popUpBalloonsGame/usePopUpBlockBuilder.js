@@ -1,10 +1,15 @@
 import { popUpBalloonsGameDefaultSettings } from 'shared/utils/data';
 import { useEffect, useState } from 'react';
 
-const usePopUpBlockBuilder = ({ balloons, balloonElements, gameFieldRef }) => {
+const usePopUpBlockBuilder = ({
+  balloons,
+  balloonElements,
+  gameFieldRef,
+  isGameRunning,
+}) => {
   const { gapsBetweenBalloons } = popUpBalloonsGameDefaultSettings;
 
-  const [gameBlocks, setGameBlocks] = useState({
+  const gameBlockTemplate = {
     type: 0,
     blocks: [
       {
@@ -15,7 +20,9 @@ const usePopUpBlockBuilder = ({ balloons, balloonElements, gameFieldRef }) => {
         blockCount: 1,
       },
     ],
-  });
+  };
+
+  const [gameBlocks, setGameBlocks] = useState({ ...gameBlockTemplate });
 
   const constructBlock = (isBalloonOutsideGameField, balloon) => {
     const { blocks } = gameBlocks;
@@ -53,6 +60,11 @@ const usePopUpBlockBuilder = ({ balloons, balloonElements, gameFieldRef }) => {
       }
     }
   };
+
+  useEffect(() => {
+    const isGameFinished = !isGameRunning && gameBlocks.blocks.length > 0;
+    if (isGameFinished) setGameBlocks({ ...gameBlockTemplate });
+  }, [isGameRunning]);
 
   useEffect(() => {
     lowerBalloonsToNextLine();
