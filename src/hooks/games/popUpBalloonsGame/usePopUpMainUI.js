@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { addNotify } from 'features/notify';
 import { actions as trainerActions } from 'features/trainer';
+import { useTimer } from 'hooks';
+
 import {
   getSeconds,
   getMinutes,
@@ -15,6 +17,10 @@ import { gameNames, popUpBalloonsGameDefaultSettings } from 'shared/utils/data';
 
 const usePopUpMainUI = ({ gameSettings, characters }) => {
   const dispatch = useDispatch();
+
+  const timer = useTimer({
+    timerEnding: 0,
+  });
 
   const isGameRunning = useSelector(
     (state) => state.trainer.activeGames[gameNames[0]],
@@ -112,6 +118,7 @@ const usePopUpMainUI = ({ gameSettings, characters }) => {
       default:
         startGame(true);
         startGameCreationTimeout();
+        timer.startTimer();
         const isGameWithTimeLimit =
           !gameSettings.gameTime.isInfinite && !balloons.length;
         if (isGameWithTimeLimit) {
@@ -136,6 +143,7 @@ const usePopUpMainUI = ({ gameSettings, characters }) => {
       setLeftIndentToBalloon,
     },
     isGameRunning,
+    gameTimerString: timer.currentTime,
   };
 };
 

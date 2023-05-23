@@ -83,7 +83,7 @@ const Editor = () => {
             name="multipleCharacters"
           />
           <Button
-            text="Add few character rows"
+            text="Add a few character rows"
             callBack={() =>
               handleCharacterList(characterTypes[1], state.multipleCharacters)
             }
@@ -98,7 +98,7 @@ const Editor = () => {
             placeholder="Row, Row..."
           />
           <Button
-            text="Remove few character rows"
+            text="Remove a few character rows"
             callBack={() =>
               handleCharacterList(characterTypes[3], state.removedCharacters)
             }

@@ -5,7 +5,6 @@ import {
   popUpBalloonsGameDefaultSettings,
   popUpBalloonsGameDifficulties,
 } from 'shared/utils/data';
-import { useCallback } from 'react';
 
 const usePopUpBalloonsSettings = () => {
   const {

@@ -12,9 +12,12 @@ import {
   checkMatch,
   getUniqueArr,
   getRandomKey,
+  convertPxToRem,
   getRandomNumber,
+  formatDateToTime,
   findHighestElement,
   getElementRectInfo,
+  returnImmutableDate,
 } from './helpers';
 
 export {
@@ -24,11 +27,14 @@ export {
   getRandomKey,
   getUniqueArr,
   validateEmail,
+  convertPxToRem,
   getRandomNumber,
+  formatDateToTime,
   createMultipleRef,
   cancelAllTimeouts,
   getElementRectInfo,
   findHighestElement,
+  returnImmutableDate,
   getRandomLeftIndent,
   getMatchedCharacters,
   cancelAllAnimationFrames,

@@ -19,6 +19,7 @@ const usePopUpBalloonsGame = (characters = []) => {
     UI: { startGame, stopGame, setLeftIndentToBalloon },
     balloons,
     isGameRunning,
+    gameTimerString,
   } = usePopUpMainUI({ gameSettings, characters });
 
   usePopUpAnimations({
@@ -44,6 +45,7 @@ const usePopUpBalloonsGame = (characters = []) => {
     gameSettings,
     gameBlocks,
     isGameRunning,
+    gameTimerString,
     difficulties,
     refs: {
       balloonRefs,

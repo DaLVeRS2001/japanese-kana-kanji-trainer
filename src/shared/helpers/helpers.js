@@ -1,3 +1,5 @@
+import { Root_em } from 'shared/utils/data';
+
 const getUniqueArr = (arr) => {
   const trimmed = arr.map((el) => el.trim());
   return [...new Set(trimmed)].filter((el) => el);
@@ -31,17 +33,41 @@ const getElementRectInfo = (element) => {
   };
 };
 
+const convertPxToRem = (px) => px / Root_em;
+
 const findHighestElement = (elements) => {
   return elements.sort((a, b) => b.offsetHeight - a.offsetHeight)[0];
 };
 
+const formatDateToTime = ({ date, withMS = false }) => {
+  const time = date
+    .toLocaleTimeString([], {
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    })
+    .replace('24', '00');
+
+  if (withMS) return `${time}.${date.getMilliseconds()}`;
+  return time;
+};
+
+const returnImmutableDate = ({ date, action }) => {
+  if (action) return new Date(new Date(date)[action.type](action.info));
+  return new Date(date);
+};
+
 export {
-  getUniqueArr,
   checkMatch,
-  getRandomNumber,
   getMinutes,
   getSeconds,
+  getUniqueArr,
   getRandomKey,
+  convertPxToRem,
+  getRandomNumber,
+  formatDateToTime,
   findHighestElement,
   getElementRectInfo,
+  returnImmutableDate,
 };

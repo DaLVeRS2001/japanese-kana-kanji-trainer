@@ -25,6 +25,7 @@ const PopUpBalloonsGame = () => {
     isGameRunning,
     gameBlocks,
     difficulties,
+    gameTimerString,
     refs: { gameFieldRef, balloonRefs, blockRefs },
     UI: { startGame, stopGame, settingHandlers, setLeftIndentToBalloon },
   } = usePopUpBalloonsGame(characters);
@@ -34,13 +35,14 @@ const PopUpBalloonsGame = () => {
       <div ref={gameFieldRef} className={b('game')}>
         {isGameRunning ? (
           <>
+            <div className={b('game-timer')}>{gameTimerString}</div>
             <PopUpBlocks
               balloons={balloons}
               refs={{ balloonRefs, blockRefs }}
               gameBlocks={gameBlocks.blocks}
               setLeftIndentToBalloon={setLeftIndentToBalloon}
             />
-            <div className={b('buttons')}>
+            <div className={b('game-buttons')}>
               <Button
                 text="Pause Game"
                 callBack={startGame}
